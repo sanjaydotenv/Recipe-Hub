@@ -1,11 +1,11 @@
 const express = require("express");
-const route = require("./routes/user.route");
-
-
+const userRouter = require("./routes/user.route");
+const createStoreRouter = require("./routes/ceateStore.route");
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/auth/api/v1/user", route);
+app.use("/auth/api/v1/user", userRouter);
+app.use("/api/v2/store" , createStoreRouter);
 
 module.exports = app;
