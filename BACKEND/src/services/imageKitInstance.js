@@ -1,19 +1,19 @@
 const imagekit = require("imagekit");
 
 const imageKitInstance = new imagekit({
+  urlEndpoint: process.env.IMAGEKIT_ENDPOINT,
   publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
   privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
-  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
 });
 
 const uploadImage = async (file, fileName) => {
   const obj = {
     file,
     fileName,
-    folder: "Recipe Hub",
+    folder: "Recipe_Hub",
   };
 
-  return imageKitInstance.upload(obj);
+  return await imageKitInstance.upload(obj);
 };
 
 module.exports = uploadImage;

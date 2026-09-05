@@ -14,11 +14,11 @@ const createStoreController = async (req, res) => {
     storeName,
     category,
     owner: userProfile._id,
-  })
+  });
 
   userProfile.role = "seller";
 
-  await userProfile.save()
+  await userProfile.save();
 
   await createdStore.populate("owner");
 

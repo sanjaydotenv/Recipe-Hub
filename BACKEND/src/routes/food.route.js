@@ -1,15 +1,21 @@
 const express = require("express");
 
-// Require foodController
-const foodController = require("../controllers/food.controller");
-
 const route = express.Router();
 
-// multer
-const upload = require("../multer");
+// require muddlewares
 
-// use foodController
-route.post("/add-food", upload.single("foodImage"), foodController.createFoodController);
+const authMiddleware = require("../middlewares/auth.middleware");
+const upload = require("../middlewares/multer.middleware");
 
-// export route
+// require controllers
+
+const foodController = require("../controllers/food.controller");
+
+route.post(
+  "/add-food",
+  authMiddleware.authorization,
+  upload.single("foodImage"),
+  foodController.createFoodController,
+);
+
 module.exports = route;

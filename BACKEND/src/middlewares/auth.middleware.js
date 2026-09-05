@@ -37,4 +37,34 @@ const authentication = async (req, res, next) => {
   }
 };
 
-module.exports = { authentication };
+const authorization = async (req, res, next) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    res.status(401).json({
+      message: "unauthorized request.",
+    });
+  }
+
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+  if (!decoded) {
+    res.status(401).json({
+      message: "invalid token.",
+    });
+  }
+
+  const user = await userModel.findById(decoded.id);
+
+  if (user.role !== "seller") {
+    return res.status(403).json({
+      message: "forbidden access.",
+    });
+  }
+
+  req.userProfile = user;
+
+  next();
+};
+
+module.exports = { authentication, authorization };
