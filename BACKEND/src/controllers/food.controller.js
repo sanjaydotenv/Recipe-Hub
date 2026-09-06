@@ -144,8 +144,32 @@ const deleteFoodController = async (req, res) => {
   }
 };
 
+const getAllFoodsController = async (req, res) => {
+  try {
+    const storeID = req.userProfile.storeID;
+
+    const foods = await foodModel.find({
+      storeID,
+    });
+
+    return res.status(200).json({
+      message: "Foods fetched successfully",
+      data: {
+        foods,
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching foods:", error);
+
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+};
+
 module.exports = {
   createFoodController,
   updateFoodController,
   deleteFoodController,
+  getAllFoodsController,
 };

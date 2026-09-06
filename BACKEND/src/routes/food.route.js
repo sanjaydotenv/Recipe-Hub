@@ -31,4 +31,10 @@ route.delete(
   foodController.deleteFoodController,
 );
 
+route.get(
+  "/get-all-foods",
+  authMiddleware.authorization,
+  foodController.getAllFoodsController
+);
+
 module.exports = route;
