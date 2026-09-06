@@ -110,7 +110,42 @@ const updateFoodController = async (req, res) => {
 };
 
 const deleteFoodController = async (req, res) => {
-  const { foodID } = req.params;
+  try {
+    const { foodID } = req.params;
+
+    if (!foodID) {
+      return res.status(400).json({
+        message: "Food ID is required",
+      });
+    }
+
+    const storeID = req.userProfile.storeID;
+
+    const deletedFood = await foodModel.findOneAndDelete({
+      _id: foodID,
+      storeID: storeID,
+    });
+
+    if (!deletedFood) {
+      return res.status(404).json({
+        message: "Food not found or you are not authorized",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Food deleted successfully",
+    });
+  } catch (error) {
+    console.error("Error deleting food:", error);
+
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
 };
 
-module.exports = { createFoodController, updateFoodController, deleteFoodController };
+module.exports = {
+  createFoodController,
+  updateFoodController,
+  deleteFoodController,
+};
