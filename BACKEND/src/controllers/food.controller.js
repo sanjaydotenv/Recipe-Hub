@@ -109,4 +109,8 @@ const updateFoodController = async (req, res) => {
     .json({ message: "Food updated successfully", data: { food } });
 };
 
-module.exports = { createFoodController, updateFoodController };
+const deleteFoodController = async (req, res) => {
+  const { foodID } = req.params;
+};
+
+module.exports = { createFoodController, updateFoodController, deleteFoodController };

@@ -25,4 +25,10 @@ route.put(
   foodController.updateFoodController,
 );
 
+route.delete(
+  "/delete-food/:foodID",
+  authMiddleware.authorization,
+  foodController.deleteFoodController,
+);
+
 module.exports = route;
