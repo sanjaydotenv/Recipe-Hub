@@ -18,6 +18,8 @@ const createStoreController = async (req, res) => {
 
   userProfile.role = "seller";
 
+  userProfile.storeID = createdStore._id;
+
   await userProfile.save();
 
   await createdStore.populate("owner");

@@ -18,4 +18,11 @@ route.post(
   foodController.createFoodController,
 );
 
+route.put(
+  "/update-food/:foodID",
+  authMiddleware.authorization,
+  upload.single("foodImage"),
+  foodController.updateFoodController,
+);
+
 module.exports = route;

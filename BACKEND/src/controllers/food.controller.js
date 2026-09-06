@@ -1,5 +1,6 @@
 const foodModel = require("../models/food.model");
 const uploadImage = require("../services/imageKitInstance");
+const storeModel = require("../models/store.model");
 
 const createFoodController = async (req, res) => {
   try {
@@ -31,12 +32,21 @@ const createFoodController = async (req, res) => {
       foodDescription,
       foodPrice,
       foodImage: foodImageResult.url,
-      storeID: req.userProfile._id,
+      storeID: req.userProfile.storeID,
     });
+
+    const store = await storeModel.findById(newFood.storeID);
 
     return res.status(201).json({
       message: "New Food added successfully",
-      data: newFood,
+      data: {
+        newFood: {
+          newFood,
+        },
+        store: {
+          store,
+        },
+      },
     });
   } catch (error) {
     console.error("Error creating food:", error);
@@ -44,4 +54,59 @@ const createFoodController = async (req, res) => {
   }
 };
 
-module.exports = { createFoodController };
+const updateFoodController = async (req, res) => {
+  const { foodID } = req.params;
+
+  if (!foodID) {
+    return res.status(400).json({ message: "Food ID is required" });
+  }
+
+  const storeID = req.userProfile.storeID;
+
+  const food = await foodModel.findOne({
+    _id: foodID,
+    storeID,
+  });
+
+  if (!food) {
+    return res.status(404).json({ message: "Food not found" });
+  }
+
+  // Update the food item with the new data
+  const { foodTitle, foodDescription, foodPrice } = req.body;
+
+  const foodImage = req.file;
+
+  if (foodTitle) {
+    food.foodTitle = foodTitle;
+  }
+  if (foodDescription) {
+    food.foodDescription = foodDescription;
+  }
+  if (foodPrice) {
+    food.foodPrice = foodPrice;
+  }
+
+  if (foodImage) {
+    const foodImageResult = await uploadImage(
+      foodImage.buffer,
+      foodImage.originalname,
+    );
+
+    if (!foodImageResult) {
+      return res.status(500).json({
+        message: "Failed to upload food image",
+      });
+    }
+
+    food.foodImage = foodImageResult.url;
+  }
+
+  await food.save();
+
+  return res
+    .status(200)
+    .json({ message: "Food updated successfully", data: { food } });
+};
+
+module.exports = { createFoodController, updateFoodController };
