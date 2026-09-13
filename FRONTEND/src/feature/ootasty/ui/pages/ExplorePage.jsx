@@ -6,11 +6,6 @@ import DetailFoodCard from "../components/DetailFoodCard";
 const ExplorePage = () => {
   handleFoodsData();
 
-  const num = [
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-  ];
-
   return (
     <div className="w-full px-5 md:px-10 py-6">
       <div className="w-full">
@@ -59,9 +54,7 @@ const ExplorePage = () => {
       <DetailFoodCard />
 
       <div className="foods pt-10 flex flex-wrap gap-15">
-        {num.map(() => {
-          return <FoodCard />;
-        })}
+        <FoodCard />;
       </div>
     </div>
   );

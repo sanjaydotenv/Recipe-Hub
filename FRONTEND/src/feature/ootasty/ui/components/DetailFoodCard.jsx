@@ -8,8 +8,8 @@ const DetailFoodCard = () => {
         {/* Image Section */}
         <div className="relative h-[320px] w-full overflow-hidden bg-[#eee] md:h-full md:w-[50%]">
           <img
-            src=""
-            alt=""
+            src="s"
+            alt="hello"
             className="h-full w-full object-cover"
           />
 

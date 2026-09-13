@@ -5,7 +5,6 @@ import { FiPlus } from "react-icons/fi";
 
 const FoodCard = () => {
 
-  
 
   return (
     <div className="group w-70 overflow-hidden rounded-2xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-gray-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.12)]">
