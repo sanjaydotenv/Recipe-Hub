@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FoodCard from "../components/FoodCard";
-import { handleFoodsData } from "../../api/foods";
+import { getAllData, handleFoodsData } from "../../api/foods";
 import DetailFoodCard from "../components/DetailFoodCard";
+import { useDispatch } from "react-redux";
 
 const ExplorePage = () => {
-  handleFoodsData();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    handleFoodsData(dispatch);
+  }, []);
+
+  const allFoodsData = getAllData();
 
   return (
     <div className="w-full px-5 md:px-10 py-6">
@@ -51,10 +58,12 @@ const ExplorePage = () => {
         </div>
       </div>
 
-      <DetailFoodCard />
+      {/* <DetailFoodCard /> */}
 
       <div className="foods pt-10 flex flex-wrap gap-15">
-        <FoodCard />;
+        {allFoodsData?.map((data) => {
+          return <FoodCard data={data} />;
+        })}
       </div>
     </div>
   );

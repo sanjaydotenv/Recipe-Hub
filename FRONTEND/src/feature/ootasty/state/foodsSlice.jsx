@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  allFoodsData: [],
+  allFoodsData: null,
 };
 
 export const foodsSlice = createSlice({
@@ -9,9 +9,7 @@ export const foodsSlice = createSlice({
   initialState,
   reducers: {
     allFoods: (state, action) => {
-      console.log(state)
-      console.log("runnint hehe")
-      console.log(action)
+      state.allFoodsData = action.payload.data.allFoods;
     },
   },
 });
