@@ -2,9 +2,12 @@ import React, { useEffect } from "react";
 import FoodCard from "../components/FoodCard";
 import { getAllData, handleFoodsData } from "../../api/foods";
 import DetailFoodCard from "../components/DetailFoodCard";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const ExplorePage = () => {
+  const { oneFood } = useSelector((state) => state.foods);
+
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,7 +61,7 @@ const ExplorePage = () => {
         </div>
       </div>
 
-      {/* <DetailFoodCard /> */}
+      {oneFood ? <DetailFoodCard oneFood={oneFood} /> : ""}
 
       <div className="foods pt-10 flex flex-wrap gap-15">
         {allFoodsData?.map((data) => {

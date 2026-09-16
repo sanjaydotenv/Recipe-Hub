@@ -8,7 +8,6 @@ const HomePage = () => {
 
   return (
     <div>
-      hellow
       <div className="hero h-[90vh] w-full flex  px-10">
         <div className="hero-left h-full w-[70%] flex flex-col gap-8 pt-20">
           <div className="heading leading-10">

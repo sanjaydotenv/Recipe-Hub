@@ -1,12 +1,18 @@
 import React from "react";
 import { CiStar } from "react-icons/ci";
 import { FiPlus } from "react-icons/fi";
+import { useFoodCard } from "../../api/foods";
+import { useDispatch } from "react-redux";
 
 const FoodCard = ({ data }) => {
 
+  const dispatch = useDispatch()
+
   return (
-    <div className="group w-70 overflow-hidden rounded-2xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-gray-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.12)]">
-      
+    <div
+      onClick={() => useFoodCard(data._id , dispatch)}
+      className="group w-70 overflow-hidden rounded-2xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-gray-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.12)]"
+    >
       <div className="relative h-48 w-full overflow-hidden">
         <img
           src={data.foodImage}
@@ -34,9 +40,7 @@ const FoodCard = ({ data }) => {
         <div className="mt-4 flex items-center justify-between">
           <div>
             <p className="text-xs text-gray-400">Starting from</p>
-            <p className="text-xl font-bold text-gray-900">
-              ₹{data.foodPrice}
-            </p>
+            <p className="text-xl font-bold text-gray-900">₹{data.foodPrice}</p>
           </div>
 
           <button className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white transition-all duration-200 hover:scale-105 hover:bg-gray-800 active:scale-90">
