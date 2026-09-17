@@ -1,10 +1,13 @@
 import React from "react";
+import { useCheckUserAuthorizeOrNot } from "../../hooks/orderHook";
+import { useSelector } from "react-redux";
 
 const DetailFoodCard = ({ oneFood }) => {
+  const check = useCheckUserAuthorizeOrNot();
+
   return (
     <div className="min-h-screen flex px-4 py-10">
       <div className="container w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-2xl shadow-black/10 md:h-[620px] md:flex">
-        
         {/* Image Section */}
         <div className="relative h-[320px] w-full overflow-hidden bg-[#eee] md:h-full md:w-[50%]">
           <img
@@ -32,9 +35,7 @@ const DetailFoodCard = ({ oneFood }) => {
               Delicious choice
             </p>
 
-            <h2 className="text-3xl font-bold">
-              {oneFood?.foodTitle}
-            </h2>
+            <h2 className="text-3xl font-bold">{oneFood?.foodTitle}</h2>
           </div>
         </div>
 
@@ -91,9 +92,7 @@ const DetailFoodCard = ({ oneFood }) => {
                   −
                 </button>
 
-                <span className="min-w-5 text-center text-lg font-bold">
-                  1
-                </span>
+                <span className="min-w-5 text-center text-lg font-bold">1</span>
 
                 <button className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-500 text-xl font-semibold text-white shadow-sm transition hover:bg-orange-600">
                   +
@@ -116,15 +115,19 @@ const DetailFoodCard = ({ oneFood }) => {
           {/* Bottom Action */}
           <div className="mt-8 flex items-center gap-4 border-t border-gray-100 pt-6">
             <div>
-              <p className="text-xs text-gray-400">
-                Total price
-              </p>
+              <p className="text-xs text-gray-400">Total price</p>
 
               <h2 className="text-2xl font-extrabold text-gray-900">
                 ₹{oneFood?.foodPrice}
               </h2>
             </div>
 
+            <button
+              onClick={check}
+              className="flex-1 rounded-2xl bg-gray-900 px-6 py-3 text-xl font-bold text-white shadow-lg shadow-black/20 transition duration-300 hover:-translate-y-0.5 hover:bg-green-700"
+            >
+              Order
+            </button>
             <button className="flex-1 rounded-2xl bg-gray-900 px-6 py-4 text-sm font-bold text-white shadow-lg shadow-black/20 transition duration-300 hover:-translate-y-0.5 hover:bg-orange-500">
               Add to Cart
             </button>
