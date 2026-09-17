@@ -1,14 +1,22 @@
 import React, { useState } from "react";
-import { Mail, Lock, User, Phone, Eye, EyeOff, ArrowRight } from "lucide-react";
+import {
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  ArrowRight,
+} from "lucide-react";
 import { useNavigate } from "react-router";
 
-const RegisterPage = () => {
-  const navigate = useNavigate();
+const LoginPage = () => {
+
+    const navigate = useNavigate()
 
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="h-screen overflow-hidden bg-[#1f1f1f]">
+
       {/* ================= HEADER ================= */}
       <header className="h-16 bg-white flex items-center px-8 sm:px-12">
         <div className="flex items-center gap-2">
@@ -16,67 +24,38 @@ const RegisterPage = () => {
             <span className="text-lg font-black">∞</span>
           </div>
 
-          <span className="text-xl font-bold text-gray-900">Tasty</span>
+          <span className="text-xl font-bold text-gray-900">
+            Tasty
+          </span>
         </div>
       </header>
 
+
       {/* ================= MAIN ================= */}
       <main className="h-[calc(100vh-64px)] bg-white flex items-center justify-center px-5">
+
         <div className="w-full max-w-[430px]">
+
           {/* ================= HEADING ================= */}
-          <div className="text-center mb-4">
-            <div className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-[#f59e0b]/10 mb-1">
+          <div className="text-center mb-5">
+
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#f59e0b]/10 mb-2">
               <span className="text-xl">🍴</span>
             </div>
 
             <h1 className="text-[30px] leading-tight font-bold text-gray-900">
-              Create Account
+              Welcome Back
             </h1>
 
             <p className="mt-1 text-sm text-gray-500">
-              Welcome to Tasty. Let's get you started.
+              Login to continue exploring delicious food.
             </p>
+
           </div>
 
+
           {/* ================= FORM ================= */}
-          <form className="space-y-2.5">
-            {/* FULL NAME */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Full Name
-              </label>
-
-              <div className="relative">
-                <User
-                  size={18}
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
-                />
-
-                <input
-                  type="text"
-                  placeholder="Enter your full name"
-                  className="
-                    w-full
-                    h-11
-                    pl-10
-                    pr-3
-                    rounded-lg
-                    bg-gray-50
-                    border
-                    border-gray-200
-                    outline-none
-                    text-[15px]
-                    text-gray-800
-                    placeholder:text-gray-400
-                    focus:bg-white
-                    focus:border-[#f59e0b]
-                    focus:ring-2
-                    focus:ring-[#f59e0b]/10
-                    transition
-                  "
-                />
-              </div>
-            </div>
+          <form className="space-y-3">
 
             {/* EMAIL */}
             <div>
@@ -86,7 +65,7 @@ const RegisterPage = () => {
 
               <div className="relative">
                 <Mail
-                  size={18}
+                  size={19}
                   className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                 />
 
@@ -116,59 +95,31 @@ const RegisterPage = () => {
               </div>
             </div>
 
-            {/* PHONE */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Phone
-              </label>
-
-              <div className="relative">
-                <Phone
-                  size={18}
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
-                />
-
-                <input
-                  type="tel"
-                  placeholder="Enter your phone number"
-                  className="
-                    w-full
-                    h-11
-                    pl-10
-                    pr-3
-                    rounded-lg
-                    bg-gray-50
-                    border
-                    border-gray-200
-                    outline-none
-                    text-[15px]
-                    text-gray-800
-                    placeholder:text-gray-400
-                    focus:bg-white
-                    focus:border-[#f59e0b]
-                    focus:ring-2
-                    focus:ring-[#f59e0b]/10
-                    transition
-                  "
-                />
-              </div>
-            </div>
 
             {/* PASSWORD */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Password
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-sm font-semibold text-gray-700">
+                  Password
+                </label>
+
+                <button
+                  type="button"
+                  className="text-xs font-semibold text-[#d97706] hover:underline"
+                >
+                  Forgot Password?
+                </button>
+              </div>
 
               <div className="relative">
                 <Lock
-                  size={18}
+                  size={19}
                   className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                 />
 
                 <input
                   type={showPassword ? "text" : "password"}
-                  placeholder="Create a password"
+                  placeholder="Enter your password"
                   className="
                     w-full
                     h-11
@@ -203,19 +154,24 @@ const RegisterPage = () => {
                     transition
                   "
                 >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  {showPassword ? (
+                    <EyeOff size={18} />
+                  ) : (
+                    <Eye size={18} />
+                  )}
                 </button>
               </div>
             </div>
 
-            {/* ================= BUTTON ================= */}
+
+            {/* LOGIN BUTTON */}
             <button
               type="submit"
               className="
                 group
                 w-full
                 h-11
-                mt-1
+                mt-2
                 rounded-lg
                 bg-[#f59e0b]
                 hover:bg-[#d97706]
@@ -231,19 +187,22 @@ const RegisterPage = () => {
                 shadow-orange-200
               "
             >
-              Create Account
+              Login
+
               <ArrowRight
                 size={18}
                 className="group-hover:translate-x-1 transition-transform"
               />
             </button>
+
           </form>
 
-          {/* ================= LOGIN ================= */}
-          <p className="text-center text-sm text-gray-500 mt-3">
-            Already have an account?
-            <button
-              onClick={() => navigate("/login")}
+
+          {/* ================= REGISTER ================= */}
+          <p className="text-center text-sm text-gray-500 mt-5">
+            Don't have an account?
+
+            <button onClick={() => navigate("/register")}
               type="button"
               className="
                 ml-1
@@ -252,18 +211,20 @@ const RegisterPage = () => {
                 hover:underline
               "
             >
-              Login
+              Register
             </button>
           </p>
 
+
           {/* ================= FOOTER ================= */}
-          <p className="text-center text-[11px] text-gray-400 mt-2">
-            By creating an account, you agree to our Terms & Conditions.
+          <p className="text-center text-[11px] text-gray-400 mt-4">
+            Secure login • Fresh food • Better experience
           </p>
+
         </div>
       </main>
     </div>
   );
 };
 
-export default RegisterPage;
+export default LoginPage;
