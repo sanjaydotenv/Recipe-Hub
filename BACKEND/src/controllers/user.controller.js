@@ -9,8 +9,6 @@ const userRegisterController = async (req, res) => {
     return res.status(400).json({ message: "All fields are required" });
   }
 
-  // Perform user registration logic here (e.g., save to database)
-
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const registeredUser = await userModel.create({
@@ -27,12 +25,24 @@ const userRegisterController = async (req, res) => {
     process.env.JWT_SECRET,
   );
 
-  res
-    .status(201)
-    .json(
-      { message: "User registered successfully", user: registeredUser },
-      token,
-    );
+  const refreshToken = jwt.sign(
+    {
+      id: registeredUser._id,
+    },
+    process.env.JWT_REFRESH_TOKEN_SECRET,
+  );
+
+  registeredUser.refreshToken = refreshToken;
+
+  await registeredUser.save();
+
+  res.cookie("refreshToken", refreshToken);
+
+  res.status(201).json({
+    message: "User registered successfully",
+    user: registeredUser,
+    token,
+  });
 };
 
 const userLoginController = async (req, res) => {
@@ -92,11 +102,59 @@ const userProfileController = async (req, res) => {
       },
     },
   });
-  
+};
+
+const refreshToken = async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    return res.status(402).json({
+      message: "refresh Token is required",
+    });
+  }
+
+  const user = await userModel.findOne({
+    refreshToken,
+  });
+
+  console.log(user);
+
+  if (!user) {
+    return res.statua(401).json({
+      message: "bad request unauthorized user",
+    });
+  }
+
+  const accessToken = jwt.sign(
+    {
+      id: user._id,
+    },
+    process.env.JWT_SECRET,
+  );
+
+  const newRefreshToken = jwt.sign(
+    {
+      id: user._id,
+    },
+    process.env.JWT_REFRESH_TOKEN_SECRET,
+  );
+
+  user.refreshToken = newRefreshToken;
+  await user.save();
+
+  res.cookie("refreshToken", newRefreshToken);
+
+  res.status(200).json({
+    message: "get new access token",
+    data: {
+      accessToken,
+    },
+  });
 };
 
 module.exports = {
   userRegisterController,
   userLoginController,
   userProfileController,
+  refreshToken,
 };

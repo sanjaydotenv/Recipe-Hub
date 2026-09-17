@@ -30,7 +30,10 @@ const userSchema = new mongoose.Schema({
   storeID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "store",
-  }
+  },
+  refreshToken: {
+    type: String,
+  },
 });
 
 const userModel = mongoose.model("User", userSchema);

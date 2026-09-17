@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Mail, Lock, User, Phone, Eye, EyeOff, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router";
+import { useHandleData } from "../../hooks/userHook";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+
+  const { handleChange, handleSubmit } = useHandleData();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -39,7 +42,7 @@ const RegisterPage = () => {
           </div>
 
           {/* ================= FORM ================= */}
-          <form className="space-y-2.5">
+          <form onSubmit={handleSubmit} className="space-y-2.5">
             {/* FULL NAME */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
@@ -53,6 +56,8 @@ const RegisterPage = () => {
                 />
 
                 <input
+                  name="fullName"
+                  onChange={handleChange}
                   type="text"
                   placeholder="Enter your full name"
                   className="
@@ -91,6 +96,8 @@ const RegisterPage = () => {
                 />
 
                 <input
+                  name="email"
+                  onChange={handleChange}
                   type="email"
                   placeholder="Enter your email"
                   className="
@@ -129,6 +136,8 @@ const RegisterPage = () => {
                 />
 
                 <input
+                  name="phone"
+                  onChange={handleChange}
                   type="tel"
                   placeholder="Enter your phone number"
                   className="
@@ -167,6 +176,8 @@ const RegisterPage = () => {
                 />
 
                 <input
+                  name="password"
+                  onChange={handleChange}
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a password"
                   className="

@@ -7,11 +7,42 @@ import ExplorePage from "./feature/ootasty/ui/pages/ExplorePage";
 import AuthLayout from "./layout/AuthLayout";
 import RegisterPage from "./feature/ootasty/ui/pages/RegisterPage";
 import LoginPage from "./feature/ootasty/ui/pages/LoginPage";
+import { axiosInsatnce } from "./config/axiosInstance";
+import { useDispatch } from "react-redux";
+import {
+  setAccessToken,
+  userRegister,
+} from "./feature/ootasty/state/authSlice";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  const hydrateUser = async () => {
+    const res = await axiosInsatnce.post(
+      "/auth/api/v1/user/refresh-token",
+      {},
+      {
+        withCredentials: true,
+      },
+    );
+
+    const accessToken = res.data.data.accessToken;
+
+    dispatch(setAccessToken(accessToken));
+
+    const user = await axiosInsatnce.get("/auth/api/v1/user/profile", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    dispatch(userRegister(user.data.data.user));
+  };
+
+  hydrateUser();
+
   const router = createBrowserRouter([
     {
-      path: "/",
       element: <AuthLayout />,
       children: [
         {

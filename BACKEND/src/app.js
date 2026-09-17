@@ -4,6 +4,7 @@ const createStoreRouter = require("./routes/ceateStore.route");
 const createFoodRouter = require("./routes/food.route");
 const getAllFoodsRouter = require("./routes/getAllFoods.route");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 app.use(express.json());
@@ -14,9 +15,9 @@ app.use(
     credentials: true,
   }),
 );
+app.use(cookieParser());
 
-
-app.use("/public/foods" , getAllFoodsRouter)
+app.use("/public/foods", getAllFoodsRouter);
 app.use("/auth/api/v1/user", userRouter);
 app.use("/api/v2/store", createStoreRouter);
 app.use("/api/v3/foods", createFoodRouter);
