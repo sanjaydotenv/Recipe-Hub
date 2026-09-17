@@ -1,22 +1,17 @@
 import React, { useState } from "react";
-import {
-  Mail,
-  Lock,
-  Eye,
-  EyeOff,
-  ArrowRight,
-} from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router";
+import { useHandleData } from "../../hooks/userHook";
 
 const LoginPage = () => {
-
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const { handleChangeLoginUser, handleSubmitLoginUser } = useHandleData();
+
   return (
     <div className="h-screen overflow-hidden bg-[#1f1f1f]">
-
       {/* ================= HEADER ================= */}
       <header className="h-16 bg-white flex items-center px-8 sm:px-12">
         <div className="flex items-center gap-2">
@@ -24,21 +19,15 @@ const LoginPage = () => {
             <span className="text-lg font-black">∞</span>
           </div>
 
-          <span className="text-xl font-bold text-gray-900">
-            Tasty
-          </span>
+          <span className="text-xl font-bold text-gray-900">Tasty</span>
         </div>
       </header>
 
-
       {/* ================= MAIN ================= */}
       <main className="h-[calc(100vh-64px)] bg-white flex items-center justify-center px-5">
-
         <div className="w-full max-w-[430px]">
-
           {/* ================= HEADING ================= */}
           <div className="text-center mb-5">
-
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#f59e0b]/10 mb-2">
               <span className="text-xl">🍴</span>
             </div>
@@ -50,13 +39,10 @@ const LoginPage = () => {
             <p className="mt-1 text-sm text-gray-500">
               Login to continue exploring delicious food.
             </p>
-
           </div>
 
-
           {/* ================= FORM ================= */}
-          <form className="space-y-3">
-
+          <form onSubmit={handleSubmitLoginUser} className="space-y-3">
             {/* EMAIL */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
@@ -70,6 +56,8 @@ const LoginPage = () => {
                 />
 
                 <input
+                  onChange={handleChangeLoginUser}
+                  name="email"
                   type="email"
                   placeholder="Enter your email"
                   className="
@@ -95,7 +83,6 @@ const LoginPage = () => {
               </div>
             </div>
 
-
             {/* PASSWORD */}
             <div>
               <div className="flex items-center justify-between mb-1">
@@ -118,6 +105,8 @@ const LoginPage = () => {
                 />
 
                 <input
+                  onChange={handleChangeLoginUser}
+                  name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   className="
@@ -154,15 +143,10 @@ const LoginPage = () => {
                     transition
                   "
                 >
-                  {showPassword ? (
-                    <EyeOff size={18} />
-                  ) : (
-                    <Eye size={18} />
-                  )}
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
             </div>
-
 
             {/* LOGIN BUTTON */}
             <button
@@ -188,21 +172,18 @@ const LoginPage = () => {
               "
             >
               Login
-
               <ArrowRight
                 size={18}
                 className="group-hover:translate-x-1 transition-transform"
               />
             </button>
-
           </form>
-
 
           {/* ================= REGISTER ================= */}
           <p className="text-center text-sm text-gray-500 mt-5">
             Don't have an account?
-
-            <button onClick={() => navigate("/register")}
+            <button
+              onClick={() => navigate("/register")}
               type="button"
               className="
                 ml-1
@@ -215,12 +196,10 @@ const LoginPage = () => {
             </button>
           </p>
 
-
           {/* ================= FOOTER ================= */}
           <p className="text-center text-[11px] text-gray-400 mt-4">
             Secure login • Fresh food • Better experience
           </p>
-
         </div>
       </main>
     </div>

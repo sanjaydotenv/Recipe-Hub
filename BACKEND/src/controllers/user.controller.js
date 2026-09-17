@@ -76,6 +76,18 @@ const userLoginController = async (req, res) => {
     process.env.JWT_SECRET,
   );
 
+  const refreshToken = jwt.sign(
+    {
+      id: isUserExists._id,
+    },
+    process.env.JWT_REFRESH_TOKEN_SECRET,
+  );
+
+  isUserExists.refreshToken = refreshToken;
+  await isUserExists.save();
+
+  res.cookie("refreshToken", refreshToken);
+
   res.status(200).json({
     message: "logged in successfully",
     data: {
@@ -117,10 +129,8 @@ const refreshToken = async (req, res) => {
     refreshToken,
   });
 
-  console.log(user);
-
   if (!user) {
-    return res.statua(401).json({
+    return res.status(401).json({
       message: "bad request unauthorized user",
     });
   }

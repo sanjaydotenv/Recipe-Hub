@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { handleUserData } from "../api/users";
+import { handleLoginUserData, handleUserData } from "../api/users";
 import { useDispatch } from "react-redux";
-import { userRegister } from "../state/authSlice";
+import { userLogin, userRegister } from "../state/authSlice";
 
 export const useHandleData = () => {
   const dispatch = useDispatch();
@@ -20,8 +20,22 @@ export const useHandleData = () => {
     dispatch(userRegister(response.data));
   };
 
+  const handleSubmitLoginUser = async (e) => {
+    e.preventDefault();
+
+    const response = await handleLoginUserData(formData);
+
+    dispatch(userLogin(response.data));
+  };
+
+  const handleChangeLoginUser = (data) => {
+    setFormData({ ...formData, [data.target.name]: data.target.value });
+  };
+
   return {
     handleChange,
     handleSubmit,
+    handleChangeLoginUser,
+    handleSubmitLoginUser,
   };
 };
