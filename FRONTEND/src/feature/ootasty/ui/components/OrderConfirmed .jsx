@@ -7,13 +7,17 @@ import {
   FiArrowRight,
 } from "react-icons/fi";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 
 const OrderConfirmed = () => {
   const navigate = useNavigate();
   const [showSuccess, setShowSuccess] = useState(true);
 
   const { oneFood } = useSelector((state) => state.foods);
+
+  if (!oneFood){
+    return <Navigate to={"/explore"} />
+  }
 
   useEffect(() => {
   const timer = setTimeout(() => {
@@ -223,7 +227,7 @@ const OrderConfirmed = () => {
             onClick={() => navigate("/explore")}
             className="flex-1 rounded-2xl border border-gray-200 bg-white px-6 py-4 font-bold text-gray-900 transition hover:border-orange-500 hover:text-orange-500"
           >
-            Continue Shopping
+            Continue Exploring...
           </button>
         </div>
       </div>
