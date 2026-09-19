@@ -13,6 +13,7 @@ import {
   setAccessToken,
   userRegister,
 } from "./feature/ootasty/state/authSlice";
+import OrderConfirmed from "./feature/ootasty/ui/components/OrderConfirmed ";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -70,6 +71,10 @@ const App = () => {
         {
           path: "order",
           element: <OrderPage />,
+        },
+        {
+          path: "order/confirm-order",
+          element: <OrderConfirmed />,
         },
       ],
     },

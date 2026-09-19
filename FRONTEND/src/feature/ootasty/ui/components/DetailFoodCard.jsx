@@ -3,7 +3,7 @@ import { useCheckUserAuthorizeOrNot } from "../../hooks/orderHook";
 import { useSelector } from "react-redux";
 
 const DetailFoodCard = ({ oneFood }) => {
-  const check = useCheckUserAuthorizeOrNot();
+  const {check , handleBackExplorePage} = useCheckUserAuthorizeOrNot();
 
   return (
     <div className="min-h-screen flex px-4 py-10">
@@ -20,7 +20,7 @@ const DetailFoodCard = ({ oneFood }) => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
           {/* Back Button */}
-          <button className="absolute left-5 top-5 flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-xl shadow-lg backdrop-blur transition hover:scale-105">
+          <button onClick={handleBackExplorePage} className="absolute left-5 top-5 flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-xl shadow-lg backdrop-blur transition hover:scale-105">
             ←
           </button>
 
@@ -123,7 +123,9 @@ const DetailFoodCard = ({ oneFood }) => {
             </div>
 
             <button
-              onClick={check}
+              onClick={() => {
+                (check());
+              }}
               className="flex-1 rounded-2xl bg-gray-900 px-6 py-3 text-xl font-bold text-white shadow-lg shadow-black/20 transition duration-300 hover:-translate-y-0.5 hover:bg-green-700"
             >
               Order

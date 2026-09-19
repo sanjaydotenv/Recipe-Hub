@@ -15,9 +15,12 @@ export const foodsSlice = createSlice({
     oneFood: (state, action) => {
       state.oneFood = action.payload;
     },
+    oneFoodEmpty: (state) => {
+      state.oneFood = null;
+    },
   },
 });
 
-export const { allFoods, oneFood } = foodsSlice.actions;
+export const { allFoods, oneFood, oneFoodEmpty } = foodsSlice.actions;
 
 export default foodsSlice.reducer;

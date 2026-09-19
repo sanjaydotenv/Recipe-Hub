@@ -65,7 +65,7 @@ const ExplorePage = () => {
 
       <div className="foods pt-10 flex flex-wrap gap-15">
         {allFoodsData?.map((data) => {
-          return <FoodCard data={data} />;
+          return <FoodCard key={data._id} data={data} />;
         })}
       </div>
     </div>

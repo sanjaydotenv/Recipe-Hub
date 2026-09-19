@@ -5,3 +5,7 @@
     --primary-color: #F8A90A;
     --secondary-color: #f9f7f7;
 }
+
+body::-webkit-scrollbar {
+    /* display: none; */
+}

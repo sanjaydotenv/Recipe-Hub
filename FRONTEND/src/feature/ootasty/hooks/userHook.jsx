@@ -2,9 +2,11 @@ import { useState } from "react";
 import { handleLoginUserData, handleUserData } from "../api/users";
 import { useDispatch } from "react-redux";
 import { userLogin, userRegister } from "../state/authSlice";
+import { useNavigate } from "react-router";
 
 export const useHandleData = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState(null);
 
@@ -26,6 +28,7 @@ export const useHandleData = () => {
     const response = await handleLoginUserData(formData);
 
     dispatch(userLogin(response.data));
+    navigate("/explore")
   };
 
   const handleChangeLoginUser = (data) => {
