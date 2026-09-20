@@ -14,6 +14,7 @@ import {
   userRegister,
 } from "./feature/ootasty/state/authSlice";
 import OrderConfirmed from "./feature/ootasty/ui/components/OrderConfirmed ";
+import ProfilePage from "./feature/ootasty/ui/pages/ProfilePage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -76,6 +77,10 @@ const App = () => {
           path: "order/confirm-order",
           element: <OrderConfirmed />,
         },
+        {
+          path: "/profile",
+          element: <ProfilePage />
+        }
       ],
     },
   ]);

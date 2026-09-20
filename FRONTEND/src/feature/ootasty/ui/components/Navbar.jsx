@@ -1,9 +1,12 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { Navigate, NavLink, useNavigate } from "react-router";
 import OoTasty from "../../../../assets/OoTasty.svg";
 import { FaCircleUser } from "react-icons/fa6";
 
 const Navbar = () => {
+
+  const navigate = useNavigate()
+
   return (
     <div className="flex justify-between rounded bg-[var(--primary-color)] items-center p-2">
       <div className="logo w-25">
@@ -35,7 +38,7 @@ const Navbar = () => {
           Order
         </NavLink>
       </div>
-      <div className="profile-logo">
+      <div onClick={() => navigate("/profile")} className="profile-logo">
         <FaCircleUser size={40} />
       </div>
     </div>
