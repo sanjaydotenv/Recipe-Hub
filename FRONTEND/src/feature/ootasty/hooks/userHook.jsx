@@ -20,6 +20,7 @@ export const useHandleData = () => {
     const response = await handleUserData(formData);
 
     dispatch(userRegister(response.data));
+    navigate("/explore")
   };
 
   const handleSubmitLoginUser = async (e) => {

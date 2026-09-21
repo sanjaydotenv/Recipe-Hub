@@ -14,7 +14,7 @@ const storeSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-});
+} , {timestamps: true});
 
 const storeModel = mongoose.model("store", storeSchema);
 

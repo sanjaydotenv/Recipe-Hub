@@ -1,15 +1,22 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { FiArrowLeft, FiCheck, FiClock, FiMapPin } from "react-icons/fi";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import NoOrders from "../components/NoOrders ";
 import { useCheckUserAuthorizeOrNot } from "../../hooks/orderHook";
 import OrderConfirmed from "../components/OrderConfirmed ";
+import { toast } from "react-toastify";
 
 const OrderPage = () => {
-  const { isOrderPlaced , setIsOrderPlaced } = useCheckUserAuthorizeOrNot();
+  const { isOrderPlaced, setIsOrderPlaced } = useCheckUserAuthorizeOrNot();
 
+  const { isAuthenticated } = useSelector((state) => state.authUser);
   const { oneFood } = useSelector((state) => state.foods);
+
+  if (!isAuthenticated) {
+    return <Navigate to={"/login"} />;
+  }
+
   const navigate = useNavigate();
 
   const quantity = 1;
@@ -18,7 +25,7 @@ const OrderPage = () => {
   const totalPrice = itemPrice * quantity + deliveryFee;
 
   const handlePlaceOrder = () => {
-    navigate("/order/confirm-order")
+    navigate("/order/confirm-order");
   };
 
   return (
@@ -230,7 +237,6 @@ const OrderPage = () => {
       ) : (
         <NoOrders />
       )}
-
     </div>
   );
 };
