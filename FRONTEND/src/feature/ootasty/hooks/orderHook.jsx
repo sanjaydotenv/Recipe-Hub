@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-import { axiosInsatnce } from "../../../config/axiosInstance";
 import { oneFoodEmpty } from "../state/foodsSlice";
 import { useState } from "react";
 

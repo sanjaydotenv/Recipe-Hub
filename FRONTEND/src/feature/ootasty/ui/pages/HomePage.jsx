@@ -2,15 +2,23 @@ import React, { useRef } from "react";
 import chef from "../../../../assets/chef svg.png";
 import FoodOverview from "../components/FoodOverview";
 import { useOverview } from "../../hooks/homeOverViewHook";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const HomePage = () => {
+  gsap.registerPlugin(useGSAP);
+
   const { overViewData, redirectExplorePage } = useOverview();
   const btnRef = useRef(null);
 
-  const handleEnter = () => {
-    console.log(btnRef.current);
-    btnRef.current.style.rotate = "0deg";
-  };
+  useGSAP(() => {
+    gsap.from(btnRef.current, {
+      rotate: 50,
+      duration: 1,
+      transformOrigin: "top",
+      ease: "bounce.out",
+    });
+  });
 
   return (
     <div>
@@ -33,10 +41,7 @@ const HomePage = () => {
             </p>
           </div>
           <div className="btn">
-            <button
-              onMouseEnter={handleEnter}
-              className="px-5 py-2 bg-[var(--primary-color)] text-2xl rounded-sm"
-            >
+            <button className="px-5 py-2 bg-[var(--primary-color)] text-2xl rounded-sm">
               Explore Recipes
             </button>
           </div>
@@ -52,10 +57,10 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div className="hero-right h-full w-[100%]">
+        <div className="hero-right h-full w-[100%] overflow-hidden">
           <img
             ref={btnRef}
-            className="h-[100%] w-[50vw] scale-x-[-1] rotate-100 origin-bottom transition-all duration-300 ease-out"
+            className="h-[100%] w-[50vw] scale-x-[-1] "
             src={chef}
             alt=""
           />

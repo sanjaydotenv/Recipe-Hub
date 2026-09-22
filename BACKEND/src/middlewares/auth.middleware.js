@@ -5,6 +5,9 @@ const authentication = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
 
+    console.log("chal to raha hai")
+    console.log(token)
+
     if (!token) {
       res.status(401).json({
         message: "unauthorized request.",

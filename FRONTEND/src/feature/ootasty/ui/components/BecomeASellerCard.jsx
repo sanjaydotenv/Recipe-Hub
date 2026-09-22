@@ -1,15 +1,11 @@
 import React from "react";
 import { useSeller } from "../../hooks/createSellerHook";
-import { createSeller } from "../../api/seller";
 
 const BecomeASellerCard = ({ onClose }) => {
-
-
+  const { createSellerAccount } = useSeller();
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black/30 px-4 backdrop-blur-sm"
-    >
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black/30 px-4 backdrop-blur-sm">
       {/* Glass Card */}
       <div
         onClick={(e) => e.stopPropagation()}
@@ -173,7 +169,10 @@ const BecomeASellerCard = ({ onClose }) => {
               sale.
             </p>
 
-            <button onClick={createSeller} className="shrink-0 rounded-xl bg-green-600 px-5 py-3 text-xs font-black text-white shadow-lg shadow-green-600/20 transition duration-300 hover:-translate-y-0.5 hover:bg-green-500 sm:px-6 sm:text-sm">
+            <button
+              onClick={createSellerAccount}
+              className="shrink-0 rounded-xl bg-green-600 px-5 py-3 text-xs font-black text-white shadow-lg shadow-green-600/20 transition duration-300 hover:-translate-y-0.5 hover:bg-green-500 sm:px-6 sm:text-sm"
+            >
               Create Seller Account →
             </button>
           </div>
