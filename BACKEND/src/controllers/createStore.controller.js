@@ -2,6 +2,7 @@ const storeModel = require("../models/store.model");
 
 const createStoreController = async (req, res) => {
   const { storeName, category } = req.body;
+
   const userProfile = req.userProfile;
 
   if (!storeName || !category) {

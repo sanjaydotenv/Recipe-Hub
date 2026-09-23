@@ -16,6 +16,7 @@ import {
 } from "./feature/ootasty/state/authSlice";
 import OrderConfirmed from "./feature/ootasty/ui/components/OrderConfirmed ";
 import ProfilePage from "./feature/ootasty/ui/pages/ProfilePage";
+import Dashboard from "./feature/ootasty/ui/pages/Dashboard";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -85,6 +86,10 @@ const App = () => {
         {
           path: "/create-store",
           element: <CreateStoreForm />
+        },
+        {
+          path: "/store/dashboard",
+          element: <Dashboard />
         }
       ],
     },

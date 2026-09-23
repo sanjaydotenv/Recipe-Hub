@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { createSeller } from "../../api/seller";
+import { useSeller } from "../../hooks/createSellerHook";
 
 const categories = [
   { id: 1, name: "Pizza", emoji: "🍕" },
@@ -19,28 +21,13 @@ const categories = [
 
 const CreateStoreForm = () => {
   // Selected categories ki IDs yahan store hongi
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [inputValue, setInputValue] = useState("");
 
-  const handleCategoryClick = (category) => {
-    setSelectedCategories((prev) => {
-      const alreadySelected = prev.some((item) => item.id === category.id);
-
-      if (alreadySelected) {
-        return prev.filter((item) => item.id !== category.id);
-      }
-
-      return [...prev, category];
-    });
-  };
-
-  const handleInputValue = (val) => {
-    setInputValue(val.target.value);
-  };
-
-  const handleCreateStoreBtn = () => {
-    console.log(selectedCategories, inputValue);
-  };
+  const {
+    handleInputValue,
+    selectedCategories,
+    handleCreateStoreBtn,
+    handleCategoryClick,
+  } = useSeller();
 
   return (
     <div className="min-h-screen bg-[#f4f6f3] flex items-center justify-center p-5">

@@ -1,11 +1,9 @@
 import React from "react";
-import { useSeller } from "../../hooks/createSellerHook";
 import { useNavigate } from "react-router";
 
 const BecomeASellerCard = ({ onClose }) => {
   const navigate = useNavigate();
 
-  const { createSellerAccount } = useSeller();
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black/30 px-4 backdrop-blur-sm">
