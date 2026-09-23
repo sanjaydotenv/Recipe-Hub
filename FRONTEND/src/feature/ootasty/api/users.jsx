@@ -21,10 +21,17 @@ export const handleLoginUserData = async (data) => {
 };
 
 export const handleAccessToken = async (dispatch) => {
+  const res = await axiosInsatnce.post(
+    "/auth/api/v1/user/refresh-token",
+    {},
+    {
+      withCredentials: true,
+    },
+  );
 
+  const accessToken = res.data.data.accessToken;
 
-  const res = await axiosInsatnce.post("/auth/api/v1/user/refresh-token")
+  dispatch(setAccessToken(accessToken));
 
-  dispatch(setAccessToken(res.data.data.accessToken))
-
-}
+  return accessToken;
+};

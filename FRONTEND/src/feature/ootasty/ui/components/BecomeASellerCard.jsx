@@ -1,7 +1,10 @@
 import React from "react";
 import { useSeller } from "../../hooks/createSellerHook";
+import { useNavigate } from "react-router";
 
 const BecomeASellerCard = ({ onClose }) => {
+  const navigate = useNavigate();
+
   const { createSellerAccount } = useSeller();
 
   return (
@@ -170,7 +173,7 @@ const BecomeASellerCard = ({ onClose }) => {
             </p>
 
             <button
-              onClick={createSellerAccount}
+              onClick={() => navigate("/create-store")}
               className="shrink-0 rounded-xl bg-green-600 px-5 py-3 text-xs font-black text-white shadow-lg shadow-green-600/20 transition duration-300 hover:-translate-y-0.5 hover:bg-green-500 sm:px-6 sm:text-sm"
             >
               Create Seller Account →

@@ -16,9 +16,11 @@ export const useSeller = () => {
   }
 
   const createSellerAccount = async () => {
-    await handleAccessToken(dispatch);
+    const token = await handleAccessToken(dispatch);
 
-    await createSeller(accessToken)
+
+    const res = await createSeller(token)
+    console.log(res)
   };
 
   return { createSellerAccount };

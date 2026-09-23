@@ -8,6 +8,7 @@ import AuthLayout from "./layout/AuthLayout";
 import RegisterPage from "./feature/ootasty/ui/pages/RegisterPage";
 import LoginPage from "./feature/ootasty/ui/pages/LoginPage";
 import { axiosInsatnce } from "./config/axiosInstance";
+import CreateStoreForm from "../src/feature/ootasty/ui/pages/CreateStoreForm"
 import { useDispatch } from "react-redux";
 import {
   setAccessToken,
@@ -80,6 +81,10 @@ const App = () => {
         {
           path: "/profile",
           element: <ProfilePage />
+        },
+        {
+          path: "/create-store",
+          element: <CreateStoreForm />
         }
       ],
     },

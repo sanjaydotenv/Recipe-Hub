@@ -1,23 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 
 const categories = [
-  { name: "Pizza", emoji: "🍕" },
-  { name: "Burgers", emoji: "🍔" },
-  { name: "Sandwiches", emoji: "🥪" },
-  { name: "Fast Food", emoji: "🍟" },
-  { name: "Breakfast", emoji: "🥞" },
-  { name: "Chinese", emoji: "🍜" },
-  { name: "Indian", emoji: "🍛" },
-  { name: "South Indian", emoji: "🍱" },
-  { name: "Desserts", emoji: "🍰" },
-  { name: "Healthy", emoji: "🥗" },
-  { name: "Italian", emoji: "🍝" },
-  { name: "Mexican", emoji: "🌮" },
-  { name: "Beverages", emoji: "☕" },
-  { name: "Ice Cream", emoji: "🍦" },
+  { id: 1, name: "Pizza", emoji: "🍕" },
+  { id: 2, name: "Burgers", emoji: "🍔" },
+  { id: 3, name: "Sandwiches", emoji: "🥪" },
+  { id: 4, name: "Fast Food", emoji: "🍟" },
+  { id: 5, name: "Breakfast", emoji: "🥞" },
+  { id: 6, name: "Chinese", emoji: "🍜" },
+  { id: 7, name: "Indian", emoji: "🍛" },
+  { id: 8, name: "South Indian", emoji: "🍱" },
+  { id: 9, name: "Desserts", emoji: "🍰" },
+  { id: 10, name: "Healthy", emoji: "🥗" },
+  { id: 11, name: "Italian", emoji: "🍝" },
+  { id: 12, name: "Mexican", emoji: "🌮" },
+  { id: 13, name: "Beverages", emoji: "☕" },
+  { id: 14, name: "Ice Cream", emoji: "🍦" },
 ];
 
 const CreateStoreForm = () => {
+  // Selected categories ki IDs yahan store hongi
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategories((prev) => {
+      const alreadySelected = prev.some((item) => item.id === category.id);
+
+      if (alreadySelected) {
+        return prev.filter((item) => item.id !== category.id);
+      }
+
+      return [...prev, category];
+    });
+  };
+
+  const handleInputValue = (val) => {
+    setInputValue(val.target.value);
+  };
+
+  const handleCreateStoreBtn = () => {
+    console.log(selectedCategories, inputValue);
+  };
+
   return (
     <div className="min-h-screen bg-[#f4f6f3] flex items-center justify-center p-5">
       <div className="relative w-full max-w-[900px] overflow-hidden rounded-[30px] bg-white shadow-[0_25px_80px_rgba(0,0,0,0.10)]">
@@ -39,6 +63,7 @@ const CreateStoreForm = () => {
                 <h1 className="text-xl font-bold tracking-tight text-[#101412]">
                   Tasty
                 </h1>
+
                 <p className="text-[10px] font-medium uppercase tracking-[2px] text-gray-400">
                   Seller Studio
                 </p>
@@ -88,6 +113,7 @@ const CreateStoreForm = () => {
               </svg>
 
               <input
+                onChange={handleInputValue}
                 type="text"
                 placeholder="Enter your store name"
                 className="h-full w-full bg-transparent text-[15px] font-medium text-gray-800 outline-none placeholder:text-gray-400"
@@ -109,26 +135,46 @@ const CreateStoreForm = () => {
               </div>
 
               <span className="hidden text-xs font-medium text-gray-400 sm:block">
-                14 categories
+                {categories.length} categories
               </span>
             </div>
 
             {/* Categories */}
             <div className="flex flex-wrap gap-2.5">
-              {categories.map((category) => (
-                <button
-                  key={category.name}
-                  type="button"
-                  className="group flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#13a854] hover:bg-[#effaf3] hover:text-[#118c47] hover:shadow-md"
-                >
-                  <span className="text-base leading-none">
-                    {category.emoji}
-                  </span>
+              {categories.map((category) => {
+                const isActive = selectedCategories.some(
+                  (item) => item.id === category.id,
+                );
 
-                  <span>{category.name}</span>
-                </button>
-              ))}
+                return (
+                  <button
+                    key={category.id}
+                    type="button"
+                    onClick={() => handleCategoryClick(category)}
+                    className={`group flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium shadow-sm transition-all duration-200 hover:-translate-y-0.5 ${
+                      isActive
+                        ? "border-[#13a854] bg-[#13a854] text-white shadow-md shadow-[#13a854]/20"
+                        : "border-gray-200 bg-white text-gray-700 hover:border-[#13a854] hover:bg-[#effaf3] hover:text-[#118c47] hover:shadow-md"
+                    }`}
+                  >
+                    <span className="text-base leading-none">
+                      {category.emoji}
+                    </span>
+
+                    <span>{category.name}</span>
+
+                    {/* Active indicator */}
+                    {isActive && (
+                      <span className="ml-1 flex h-4 w-4 items-center justify-center rounded-full bg-white/20 text-[10px]">
+                        ✓
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
+
+            {/* Debug / figure out selected IDs */}
           </div>
 
           {/* Bottom */}
@@ -138,6 +184,7 @@ const CreateStoreForm = () => {
             </p>
 
             <button
+              onClick={handleCreateStoreBtn}
               type="button"
               className="group flex h-12 items-center justify-center gap-3 rounded-2xl bg-[#13a854] px-7 text-sm font-bold text-white shadow-[0_10px_25px_rgba(19,168,84,0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#0f974a] hover:shadow-[0_14px_30px_rgba(19,168,84,0.28)] active:translate-y-0"
             >
