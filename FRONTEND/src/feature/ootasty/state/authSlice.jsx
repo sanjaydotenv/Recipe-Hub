@@ -6,6 +6,7 @@ const authSice = createSlice({
     user: null,
     accessToken: null,
     isAuthenticated: false,
+    
   },
   reducers: {
     userRegister: (state, action) => {

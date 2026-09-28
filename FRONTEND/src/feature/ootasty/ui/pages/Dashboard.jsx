@@ -20,8 +20,14 @@ import {
   CheckCircle2,
   CircleAlert,
 } from "lucide-react";
+import { useSelector } from "react-redux";
+import { useDashboardHook } from "../../hooks/DashboardHook";
 
 const Dashboard = () => {
+  const { user } = useSelector((state) => state.authUser);
+
+  const { day, date, month } = useDashboardHook();
+
   const stats = [
     {
       title: "Total Revenue",
@@ -190,11 +196,11 @@ const Dashboard = () => {
           <header className="flex h-[82px] items-center justify-between border-b border-[#e8ecea] bg-white px-5 sm:px-8">
             <div>
               <p className="text-[11px] font-medium text-gray-400">
-                Wednesday, September 23
+                {day}, {month} {date}
               </p>
 
               <h2 className="mt-0.5 text-xl font-bold tracking-tight">
-                Good evening, Mayur 👋
+                Good evening, {user?.fullName} 👋
               </h2>
             </div>
 
@@ -223,9 +229,9 @@ const Dashboard = () => {
                 </div>
 
                 <div className="hidden text-left sm:block">
-                  <p className="text-xs font-bold">Mayur</p>
+                  <p className="text-xs font-bold">{user?.fullName}</p>
 
-                  <p className="text-[9px] text-gray-400">Owner</p>
+                  <p className="text-[9px] text-gray-400">{user?.role}</p>
                 </div>
 
                 <ChevronDown size={14} className="ml-1 text-gray-400" />

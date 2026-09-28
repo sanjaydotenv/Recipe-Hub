@@ -17,11 +17,14 @@ import BecomeASellerCard from "../components/BecomeASellerCard";
 import { useProfile } from "../../hooks/profileHook";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
+import GoToDashboard from "../components/GoToDashboard";
 
 const ProfilePage = () => {
   const { handleBecomeASellerCard, isShow, backToProfile } = useProfile();
 
   const { user  , isAuthenticated} = useSelector((state) => state.authUser);
+
+  
 
   if (!isAuthenticated){
     return <Navigate to={"/"} />
@@ -231,7 +234,8 @@ const ProfilePage = () => {
           </section>
 
           {/* ================= SELLER CARD ================= */}
-          <section className="relative overflow-hidden rounded-[28px] bg-[#101512] p-6 text-white shadow-[0_15px_50px_rgba(0,0,0,0.12)] sm:p-7">
+
+          {user.role === "seller" ? <GoToDashboard /> : <section className="relative overflow-hidden rounded-[28px] bg-[#101512] p-6 text-white shadow-[0_15px_50px_rgba(0,0,0,0.12)] sm:p-7">
             {/* Glow */}
             <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-green-500/20 blur-3xl" />
 
@@ -301,7 +305,8 @@ const ProfilePage = () => {
                 <ChevronRight size={17} />
               </button>
             </div>
-          </section>
+          </section>}
+          
         </div>
 
         {/* ================= QUICK ACTIONS ================= */}
