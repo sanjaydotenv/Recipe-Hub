@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useDashboardHook } from "../../hooks/DashboardHook";
+import DashboardAside from "../components/DashboardAside";
 
 const Dashboard = () => {
   const { user } = useSelector((state) => state.authUser);
@@ -144,17 +145,8 @@ const Dashboard = () => {
               Main Menu
             </p>
 
-            <nav className="space-y-1.5">
-              <SidebarItem icon={LayoutDashboard} label="Dashboard" active />
+            <DashboardAside />
 
-              <SidebarItem icon={ShoppingBag} label="Orders" />
-
-              <SidebarItem icon={Package} label="Products" />
-
-              <SidebarItem icon={Plus} label="Add Product" />
-
-              <SidebarItem icon={Users} label="Customers" />
-            </nav>
 
             <p className="mb-3 mt-9 px-3 text-[10px] font-bold uppercase tracking-[1.8px] text-gray-400">
               Settings
