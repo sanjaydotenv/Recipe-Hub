@@ -122,65 +122,14 @@ const Dashboard = () => {
     <div className="min-h-screen bg-[#f6f8f7] text-[#151918]">
       <div className="flex min-h-screen">
         {/* ================= SIDEBAR ================= */}
-        <aside className="hidden w-[245px] shrink-0 border-r border-[#e8ecea] bg-white lg:flex lg:flex-col">
-          {/* Logo */}
-          <div className="flex h-[82px] items-center border-b border-[#eef1ef] px-7">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#13a854] text-xl text-white shadow-lg shadow-[#13a854]/20">
-                🍴
-              </div>
-
-              <div>
-                <h1 className="text-[19px] font-bold tracking-tight">Tasty</h1>
-                <p className="text-[9px] font-semibold uppercase tracking-[2px] text-gray-400">
-                  Seller Studio
-                </p>
-              </div>
-            </div>
-          </div>
+  
 
           {/* Navigation */}
-          <div className="flex-1 px-4 py-7">
-            <p className="mb-3 px-3 text-[10px] font-bold uppercase tracking-[1.8px] text-gray-400">
-              Main Menu
-            </p>
-
-            <DashboardAside />
-
-
-            <p className="mb-3 mt-9 px-3 text-[10px] font-bold uppercase tracking-[1.8px] text-gray-400">
-              Settings
-            </p>
-
-            <SidebarItem icon={Settings} label="Settings" />
-          </div>
+    
 
           {/* Store Card */}
-          <div className="p-4">
-            <div className="rounded-2xl bg-[#f3faf5] p-4">
-              <div className="mb-3 flex items-center justify-between">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-lg shadow-sm">
-                  🏪
-                </div>
+       
 
-                <span className="rounded-full bg-[#d9f7e3] px-2 py-1 text-[9px] font-bold text-[#139447]">
-                  ACTIVE
-                </span>
-              </div>
-
-              <p className="text-sm font-bold">System Kitchen</p>
-
-              <p className="mt-1 text-[11px] text-gray-400">
-                Your store is live
-              </p>
-
-              <button className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-white py-2.5 text-xs font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50">
-                View Store
-                <ArrowUpRight size={13} />
-              </button>
-            </div>
-          </div>
-        </aside>
 
         {/* ================= MAIN ================= */}
         <main className="min-w-0 flex-1">
