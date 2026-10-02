@@ -18,8 +18,11 @@ const AddFood = () => {
   }
 
   const handleChange = (e) => {
-
     imageRef.current.click()
+  }
+
+  const getAllvalue = (e) => {
+    console.log(e.target.value)
   }
 
   return (
@@ -87,6 +90,7 @@ const AddFood = () => {
                   </label>
 
                   <input
+                  onChange={getAllvalue}
                   onInput={(e) => setFoodTitle(e.target.value)}
                     type="text"
                     placeholder="e.g. Peri Peri Pizza"
@@ -105,6 +109,7 @@ const AddFood = () => {
                   </div>
 
                   <textarea
+                  onChange={getAllvalue}
                   onInput={(e) => setFoodDescription(e.target.value)}
                     rows={6}
                     placeholder="Describe your food, ingredients, taste, portion size..."
@@ -124,6 +129,7 @@ const AddFood = () => {
                     </span>
 
                     <input
+                    onChange={getAllvalue}
                     onInput={(e) => setFoodPrice(e.target.value)}
                       type="number"
                       placeholder="149"
