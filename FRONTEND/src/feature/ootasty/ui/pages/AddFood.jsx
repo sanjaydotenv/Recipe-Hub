@@ -4,26 +4,32 @@ import { FiArrowLeft, FiUploadCloud, FiImage, FiPlus } from "react-icons/fi";
 import DashboardAside from "../components/DashboardAside";
 
 const AddFood = () => {
-  const [foodTitle, setFoodTitle] = useState("");
-  const [foodDescription, setFoodDescription] = useState("");
-  const [foodPrice, setFoodPrice] = useState("");
-  const [foodImage, setFoodImage] = useState("")
-  const imageRef = useRef(null)
+  const [foodData, setFoodData] = useState({});
+  const [imgFile, setImgFile] = useState(null);
+  const [imgPreview, setImgPreview] = useState(null)
+  const imgRef = useRef();
 
+  const imgClick = () => {
+    imgRef.current.click();
+  };
 
-  const handleImage = (e) => {
-    
+  const selectedImage = (e) => {
     const blob = URL.createObjectURL(e.target.files[0])
-    setFoodImage(blob)
-  }
+    setImgPreview(blob)
+    setImgFile(e.target.files[0]);
+  };
 
   const handleChange = (e) => {
-    imageRef.current.click()
-  }
+    const { name, value } = e.target;
+    setFoodData({ ...foodData, [name]: value });
+  };
 
-  const getAllvalue = (e) => {
-    console.log(e.target.value)
-  }
+  const handleFoodDataSubmit = () => {
+    const obj = { ...foodData, foodImage: imgFile };
+    console.log(obj)
+  };
+
+  console.log(foodData );
 
   return (
     <div className="min-h-screen bg-[#f6f8f7] flex">
@@ -90,8 +96,8 @@ const AddFood = () => {
                   </label>
 
                   <input
-                  onChange={getAllvalue}
-                  onInput={(e) => setFoodTitle(e.target.value)}
+                    onInput={handleChange}
+                    name="foodTitle"
                     type="text"
                     placeholder="e.g. Peri Peri Pizza"
                     className="h-12 w-full rounded-xl border border-[#dfe6e2] bg-[#fbfcfb] px-4 text-sm text-[#17221d] outline-none placeholder:text-[#a5afaa] transition focus:border-[#16a765] focus:ring-4 focus:ring-[#16a765]/10"
@@ -109,8 +115,8 @@ const AddFood = () => {
                   </div>
 
                   <textarea
-                  onChange={getAllvalue}
-                  onInput={(e) => setFoodDescription(e.target.value)}
+                    onInput={handleChange}
+                    name="foodDescription"
                     rows={6}
                     placeholder="Describe your food, ingredients, taste, portion size..."
                     className="w-full resize-none rounded-xl border border-[#dfe6e2] bg-[#fbfcfb] px-4 py-3 text-sm leading-6 text-[#17221d] outline-none placeholder:text-[#a5afaa] transition focus:border-[#16a765] focus:ring-4 focus:ring-[#16a765]/10"
@@ -129,8 +135,8 @@ const AddFood = () => {
                     </span>
 
                     <input
-                    onChange={getAllvalue}
-                    onInput={(e) => setFoodPrice(e.target.value)}
+                      onInput={handleChange}
+                      name="foodPrice"
                       type="number"
                       placeholder="149"
                       className="h-12 w-full rounded-xl border border-[#dfe6e2] bg-[#fbfcfb] pl-10 pr-4 text-sm text-[#17221d] outline-none placeholder:text-[#a5afaa] transition focus:border-[#16a765] focus:ring-4 focus:ring-[#16a765]/10"
@@ -160,7 +166,13 @@ const AddFood = () => {
                     <FiUploadCloud size={29} />
                   </div>
 
-                  <input onChange={handleImage} ref={imageRef} hidden type="file" />
+                  <input
+                    onChange={selectedImage}
+                    ref={imgRef}
+                    name="foodImage"
+                    hidden
+                    type="file"
+                  />
 
                   <h3 className="text-sm font-bold text-[#27332e]">
                     Upload food image
@@ -171,7 +183,7 @@ const AddFood = () => {
                   </p>
 
                   <button
-                  onClick={handleChange}
+                    onClick={imgClick}
                     type="button"
                     className="mt-5 rounded-lg bg-[#16a765] px-5 py-2.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#119456]"
                   >
@@ -185,87 +197,77 @@ const AddFood = () => {
           {/* =================================================
               RIGHT COLUMN
           ================================================== */}
-<div className="space-y-6">
-  {/* ===============================================
+          <div className="space-y-6">
+            {/* ===============================================
       FOOD PREVIEW
   ================================================ */}
-  <div className="overflow-hidden rounded-2xl border border-[#e2e8e4] bg-white">
-    
-    {/* PREVIEW HEADER */}
-    <div className="border-b border-[#edf0ee] px-6 py-5">
-      <h2 className="font-bold text-[#111815]">Food Preview</h2>
+            <div className="overflow-hidden rounded-2xl border border-[#e2e8e4] bg-white">
+              {/* PREVIEW HEADER */}
+              <div className="border-b border-[#edf0ee] px-6 py-5">
+                <h2 className="font-bold text-[#111815]">Food Preview</h2>
 
-      <p className="mt-1 text-xs text-[#8a9791]">
-        Preview of your food item.
-      </p>
-    </div>
+                <p className="mt-1 text-xs text-[#8a9791]">
+                  Preview of your food item.
+                </p>
+              </div>
 
-    {/* PREVIEW IMAGE */}
-    <div className="h-[240px] w-full overflow-hidden bg-[#eef3f0]">
-      {foodImage ? (
-        <img
-          src={foodImage}
-          alt={foodTitle || "Food preview"}
-          className="h-full w-full object-cover"
-        />
-      ) : (
-        <div className="flex h-full w-full flex-col items-center justify-center text-[#a2aca7]">
-          <FiImage size={42} strokeWidth={1.5} />
+              {/* PREVIEW IMAGE */}
+              <div className="h-[240px] w-full overflow-hidden bg-[#eef3f0]">
+                {imgPreview ? (
+                  <img
+                  src={imgPreview}
+                    alt={foodData.foodTitle || "Food preview"}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full w-full flex-col items-center justify-center text-[#a2aca7]">
+                    <FiImage size={42} strokeWidth={1.5} />
 
-          <p className="mt-3 text-xs">
-            Food image preview
-          </p>
-        </div>
-      )}
-    </div>
+                    <p className="mt-3 text-xs">Food image preview</p>
+                  </div>
+                )}
+              </div>
 
-    {/* PREVIEW DETAILS */}
-    <div className="p-6">
-      <div className="flex items-start justify-between gap-4">
-        
-        <div className="min-w-0">
-          <h3 className="truncate font-bold text-[#18221e]">
-            {foodTitle || "Food Title"}
-          </h3>
+              {/* PREVIEW DETAILS */}
+              <div className="p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <h3 className="truncate font-bold text-[#18221e]">{foodData.foodTitle ? foodData.foodTitle : <i className="text-[#18221eb1]">Title</i>}</h3>
+                    
+                    <p className="mt-2 text-xs leading-5 text-[#8b9690]">
+                      {foodData.foodDescription ? foodData.foodDescription : <i className="text-[#8b9690be]">Your food description will appear here. Add a delicious
+                      description for your customers.</i>}
+                    </p>
+                  </div>
 
-          <p className="mt-2 text-xs leading-5 text-[#8b9690]">
-            {foodDescription ||
-              "Your food description will appear here. Add a delicious description for your customers."}
-          </p>
-        </div>
+                  <span className="whitespace-nowrap text-lg font-bold text-[#16a765]">{foodData.foodPrice ? `₹${foodData.foodPrice}` : <i className="text-[#16a766a4]">₹149</i>}</span>
+                </div>
+              </div>
+            </div>
 
-        <span className="whitespace-nowrap text-lg font-bold text-[#16a765]">
-          {foodPrice ? `₹${foodPrice}` : "₹149"}
-        </span>
-      </div>
-    </div>
-  </div>
-
-  {/* ===============================================
+            {/* ===============================================
       PUBLISH CARD
   ================================================ */}
-  <div className="rounded-2xl border border-[#e2e8e4] bg-white p-6">
-    <div className="mb-5">
-      <h3 className="font-bold text-[#111815]">
-        Ready to publish?
-      </h3>
+            <div className="rounded-2xl border border-[#e2e8e4] bg-white p-6">
+              <div className="mb-5">
+                <h3 className="font-bold text-[#111815]">Ready to publish?</h3>
 
-      <p className="mt-1 text-xs leading-5 text-[#8a9791]">
-        Make sure all information is correct before adding this food
-        to your store.
-      </p>
-    </div>
+                <p className="mt-1 text-xs leading-5 text-[#8a9791]">
+                  Make sure all information is correct before adding this food
+                  to your store.
+                </p>
+              </div>
 
-    <button
-      type="button"
-      className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#16a765] text-sm font-bold text-white shadow-lg shadow-[#16a765]/20 transition hover:bg-[#119456] active:scale-[0.98]"
-    >
-      <FiPlus size={18} />
-      Add Food
-    </button>
-  </div>
-</div>
-
+              <button
+                onClick={handleFoodDataSubmit}
+                type="button"
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#16a765] text-sm font-bold text-white shadow-lg shadow-[#16a765]/20 transition hover:bg-[#119456] active:scale-[0.98]"
+              >
+                <FiPlus size={18} />
+                Add Food
+              </button>
+            </div>
+          </div>
         </div>
       </main>
     </div>
