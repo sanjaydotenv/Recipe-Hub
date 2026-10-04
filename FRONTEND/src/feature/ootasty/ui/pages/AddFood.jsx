@@ -2,20 +2,23 @@ import React, { useRef, useState } from "react";
 import { FiArrowLeft, FiUploadCloud, FiImage, FiPlus } from "react-icons/fi";
 
 import DashboardAside from "../components/DashboardAside";
+import { useFoodManageHook } from "../../hooks/foodManageHook";
 
 const AddFood = () => {
   const [foodData, setFoodData] = useState({});
   const [imgFile, setImgFile] = useState(null);
-  const [imgPreview, setImgPreview] = useState(null)
+  const [imgPreview, setImgPreview] = useState(null);
   const imgRef = useRef();
+
+  const { addFoodCall } = useFoodManageHook();
 
   const imgClick = () => {
     imgRef.current.click();
   };
 
   const selectedImage = (e) => {
-    const blob = URL.createObjectURL(e.target.files[0])
-    setImgPreview(blob)
+    const blob = URL.createObjectURL(e.target.files[0]);
+    setImgPreview(blob);
     setImgFile(e.target.files[0]);
   };
 
@@ -26,10 +29,8 @@ const AddFood = () => {
 
   const handleFoodDataSubmit = () => {
     const obj = { ...foodData, foodImage: imgFile };
-    console.log(obj)
+    addFoodCall(obj)
   };
-
-  console.log(foodData );
 
   return (
     <div className="min-h-screen bg-[#f6f8f7] flex">
@@ -215,7 +216,7 @@ const AddFood = () => {
               <div className="h-[240px] w-full overflow-hidden bg-[#eef3f0]">
                 {imgPreview ? (
                   <img
-                  src={imgPreview}
+                    src={imgPreview}
                     alt={foodData.foodTitle || "Food preview"}
                     className="h-full w-full object-cover"
                   />
@@ -232,15 +233,33 @@ const AddFood = () => {
               <div className="p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <h3 className="truncate font-bold text-[#18221e]">{foodData.foodTitle ? foodData.foodTitle : <i className="text-[#18221eb1]">Title</i>}</h3>
-                    
+                    <h3 className="truncate font-bold text-[#18221e]">
+                      {foodData.foodTitle ? (
+                        foodData.foodTitle
+                      ) : (
+                        <i className="text-[#18221eb1]">Title</i>
+                      )}
+                    </h3>
+
                     <p className="mt-2 text-xs leading-5 text-[#8b9690]">
-                      {foodData.foodDescription ? foodData.foodDescription : <i className="text-[#8b9690be]">Your food description will appear here. Add a delicious
-                      description for your customers.</i>}
+                      {foodData.foodDescription ? (
+                        foodData.foodDescription
+                      ) : (
+                        <i className="text-[#8b9690be]">
+                          Your food description will appear here. Add a
+                          delicious description for your customers.
+                        </i>
+                      )}
                     </p>
                   </div>
 
-                  <span className="whitespace-nowrap text-lg font-bold text-[#16a765]">{foodData.foodPrice ? `₹${foodData.foodPrice}` : <i className="text-[#16a766a4]">₹149</i>}</span>
+                  <span className="whitespace-nowrap text-lg font-bold text-[#16a765]">
+                    {foodData.foodPrice ? (
+                      `₹${foodData.foodPrice}`
+                    ) : (
+                      <i className="text-[#16a766a4]">₹149</i>
+                    )}
+                  </span>
                 </div>
               </div>
             </div>
