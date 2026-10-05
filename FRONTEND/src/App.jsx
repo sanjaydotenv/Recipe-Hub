@@ -18,6 +18,7 @@ import OrderConfirmed from "./feature/ootasty/ui/components/OrderConfirmed ";
 import ProfilePage from "./feature/ootasty/ui/pages/ProfilePage";
 import Dashboard from "./feature/ootasty/ui/pages/Dashboard";
 import AddFood from "./feature/ootasty/ui/pages/AddFood";
+import Products from "./feature/ootasty/ui/pages/Products";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -91,6 +92,10 @@ const App = () => {
         {
           path: "/store/dashboard",
           element: <Dashboard />
+        },
+        {
+          path: "/store/products",
+          element: <Products />
         },
         {
           path: "/store/addFood",

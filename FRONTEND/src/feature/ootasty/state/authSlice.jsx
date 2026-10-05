@@ -10,6 +10,7 @@ const authSice = createSlice({
   reducers: {
     userRegister: (state, action) => {
       state.user = action.payload;
+      state.isAuthenticated = true
     },
     userLogin: (state, action) => {
       state.user = action.payload.data;

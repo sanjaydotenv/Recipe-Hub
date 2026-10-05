@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { allFoods, oneFood } from "../state/foodsSlice";
 
 export const handleFoodsData = async (dispatch) => {
+
   const data = await axiosInsatnce.get("/public/foods/get-all-foods");
 
   dispatch(allFoods(data));
