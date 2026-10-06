@@ -8,8 +8,11 @@ import {
   FiLogOut,
   FiChevronRight,
 } from "react-icons/fi";
+import { useNavigate } from "react-router";
 
 const AdminAsideNav = () => {
+const navigate = useNavigate()
+
   return (
     <aside className="w-64 shrink-0 h-[calc(100vh-10px)] sticky top-30">
       <div className="h-full bg-[#06251c] rounded-2xl overflow-hidden border border-[#0d3a2d] flex flex-col">
@@ -42,6 +45,7 @@ const AdminAsideNav = () => {
           <div className="space-y-1.5">
             {/* Dashboard */}
             <button
+            onClick={() => navigate("/admin")}
               className="
                 w-full flex items-center gap-3
                 px-3 py-3 rounded-xl
@@ -74,7 +78,7 @@ const AdminAsideNav = () => {
                 <FiUsers size={17} />
               </div>
 
-              <div onClick={() => navigate("/users")} className="flex-1 text-left">
+              <div onClick={() => navigate("/admin/users")} className="flex-1 text-left">
                 <p className="text-sm font-medium">Users</p>
 
                 <p className="text-[10px] text-white/35">Manage users</p>
