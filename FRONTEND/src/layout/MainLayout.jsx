@@ -3,6 +3,7 @@ import { Outlet, useLocation } from "react-router";
 
 import Navbar from "../feature/ootasty/ui/components/Navbar";
 import DashboardAside from "../feature/ootasty/ui/components/DashboardAside";
+import AdminAsideNav from "../feature/ootasty/ui/components/AdminAsideNav";
 
 const MainLayout = () => {
   const { pathname } = useLocation();
@@ -11,7 +12,8 @@ const MainLayout = () => {
     pathname === "/" ||
     pathname === "/order" ||
     pathname === "/explore" ||
-    pathname == "/profile"
+    pathname == "/profile" ||
+    pathname === "/admin"
 
   return (
     <div className="min-h-screen bg-[var(--secondary-color)]">
@@ -23,6 +25,8 @@ const MainLayout = () => {
 
       {/* Dashboard Area */}
       <div className="flex p-5">
+
+        {pathname === "/admin" && <AdminAsideNav />}
 
         {/* Sidebar */}
         {!isPublicPage && <DashboardAside />}

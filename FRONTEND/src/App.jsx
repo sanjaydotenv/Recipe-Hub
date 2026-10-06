@@ -20,6 +20,8 @@ import Dashboard from "./feature/ootasty/ui/pages/Dashboard";
 import AddFood from "./feature/ootasty/ui/pages/AddFood";
 import Products from "./feature/ootasty/ui/pages/Products";
 import AdminPage from "./feature/ootasty/ui/pages/AdminPage";
+import AdminLayout from "./layout/AdminLayout";
+import AllUserPage from "./feature/ootasty/ui/pages/AllUserPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -67,10 +69,6 @@ const App = () => {
       element: <MainLayout />,
       children: [
         {
-          path: "/admin",
-          element: <AdminPage />
-        },
-        {
           path: "",
           element: <HomePage />,
         },
@@ -108,6 +106,20 @@ const App = () => {
         }
       ],
     },
+    {
+      path: "/admin",
+      element: <AdminLayout />,
+      children: [
+        {
+          path: "",
+          element: <AdminPage />
+        },
+        {
+          path: "users",
+          element: <AllUserPage />
+        }
+      ]
+    }
   ]);
 
   return <RouterProvider router={router} />;
