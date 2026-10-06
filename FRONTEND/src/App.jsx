@@ -19,6 +19,7 @@ import ProfilePage from "./feature/ootasty/ui/pages/ProfilePage";
 import Dashboard from "./feature/ootasty/ui/pages/Dashboard";
 import AddFood from "./feature/ootasty/ui/pages/AddFood";
 import Products from "./feature/ootasty/ui/pages/Products";
+import AdminPage from "./feature/ootasty/ui/pages/AdminPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -65,6 +66,10 @@ const App = () => {
       path: "/",
       element: <MainLayout />,
       children: [
+        {
+          path: "/admin",
+          element: <AdminPage />
+        },
         {
           path: "",
           element: <HomePage />,

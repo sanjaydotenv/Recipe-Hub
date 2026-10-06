@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 
 export const useHandleData = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState(null);
 
@@ -20,7 +20,7 @@ export const useHandleData = () => {
     const response = await handleUserData(formData);
 
     dispatch(userRegister(response.data));
-    navigate("/explore")
+    navigate("/explore");
   };
 
   const handleSubmitLoginUser = async (e) => {
@@ -28,8 +28,13 @@ export const useHandleData = () => {
 
     const response = await handleLoginUserData(formData);
 
+    if (response.data.data.user.role === "admin") {
+      navigate("/admin");
+      return;
+    }
+
     dispatch(userLogin(response.data));
-    navigate("/explore")
+    navigate("/explore");
   };
 
   const handleChangeLoginUser = (data) => {

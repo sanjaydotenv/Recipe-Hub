@@ -1,5 +1,5 @@
 import { axiosInsatnce } from "../../../config/axiosInstance";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 import { allFoods, oneFood } from "../state/foodsSlice";
 
 export const handleFoodsData = async (dispatch) => {

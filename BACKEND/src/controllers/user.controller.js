@@ -94,6 +94,7 @@ const userLoginController = async (req, res) => {
       user: {
         fullName: isUserExists.fullName,
         email: isUserExists.email,
+        role: isUserExists.role,
       },
     },
     token,
