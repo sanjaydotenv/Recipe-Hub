@@ -1,4 +1,5 @@
 const storeModel = require("../models/store.model");
+const userModel = require("../models/user.model");
 
 const createStoreController = async (req, res) => {
   const { storeName, category } = req.body;
@@ -44,4 +45,27 @@ const getAllStoresController = async (req, res) => {
   });
 };
 
-module.exports = { createStoreController, getAllStoresController };
+const getAllUsersController = async (req, res) => {
+  const allUsers = await userModel
+  .find()
+  .select("-password -refreshToken")
+  .populate({
+    path: "storeID",
+    select: "-_id storeName",
+  });
+
+  res.status(200).json({
+    message: "All Users Fetched Successfully",
+    data: {
+      users: {
+        allUsers,
+      },
+    },
+  });
+};
+
+module.exports = {
+  createStoreController,
+  getAllStoresController,
+  getAllUsersController,
+};

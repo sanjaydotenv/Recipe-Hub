@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   FiSearch,
   FiFilter,
@@ -9,6 +9,8 @@ import {
   FiChevronDown,
   FiUserPlus,
 } from "react-icons/fi";
+import { useAdminStores } from "../../hooks/AdminStoreshook";
+import { useSelector } from "react-redux";
 
 const AllUserPage = () => {
   const users = [
@@ -67,6 +69,14 @@ const AllUserPage = () => {
       role: "Seller",
     },
   ];
+  const { getAllUsersData } = useAdminStores();
+  useEffect(() => {
+    getAllUsersData();
+  }, []);
+
+  const { allUsers } = useSelector((state) => state.admin);
+
+  console.log(allUsers);
 
   return (
     <div className="w-full min-h-screen bg-[#f9f7f7] p-6 lg:p-8">
@@ -107,7 +117,7 @@ const AllUserPage = () => {
           <p className="text-sm text-gray-500">Total Users</p>
 
           <div className="flex items-end justify-between mt-2">
-            <h2 className="text-3xl font-bold">12,480</h2>
+            <h2 className="text-3xl font-bold">{allUsers?.length}</h2>
 
             <span className="text-xs font-medium text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full">
               +12.5%
@@ -120,7 +130,7 @@ const AllUserPage = () => {
           <p className="text-sm text-gray-500">Active Users</p>
 
           <div className="flex items-end justify-between mt-2">
-            <h2 className="text-3xl font-bold">10,842</h2>
+            <h2 className="text-3xl font-bold">{allUsers?.length}</h2>
 
             <span className="text-xs font-medium text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full">
               86.8%
@@ -133,7 +143,7 @@ const AllUserPage = () => {
           <p className="text-sm text-gray-500">Pending Users</p>
 
           <div className="flex items-end justify-between mt-2">
-            <h2 className="text-3xl font-bold">128</h2>
+            <h2 className="text-3xl font-bold">0</h2>
 
             <span className="text-xs font-medium text-orange-600 bg-orange-50 px-2.5 py-1 rounded-full">
               Needs review
@@ -146,7 +156,7 @@ const AllUserPage = () => {
           <p className="text-sm text-gray-500">New This Month</p>
 
           <div className="flex items-end justify-between mt-2">
-            <h2 className="text-3xl font-bold">486</h2>
+            <h2 className="text-3xl font-bold">{allUsers?.length}</h2>
 
             <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">
               +8.2%
@@ -248,18 +258,18 @@ const AllUserPage = () => {
             </thead>
 
             <tbody className="divide-y divide-gray-100">
-              {users.map((user) => (
-                <tr key={user.id} className="hover:bg-gray-50/70 transition">
+              {allUsers?.map((user) => (
+                <tr key={user._id} className="hover:bg-gray-50/70 transition">
                   {/* User */}
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl bg-emerald-50 text-[#064e3b] flex items-center justify-center font-semibold">
-                        {user.name.charAt(0)}
+                        {user.fullName.charAt(0)}
                       </div>
 
                       <div>
                         <p className="text-sm font-semibold text-gray-800">
-                          {user.name}
+                          {user.fullName}
                         </p>
 
                         <p className="text-xs text-gray-500 mt-0.5">
@@ -271,7 +281,11 @@ const AllUserPage = () => {
 
                   {/* Store */}
                   <td className="px-5 py-4">
-                    <span className="text-sm text-gray-700">{user.store}</span>
+                    <span className="text-sm text-gray-700">
+                      {user.role === "seller"
+                        ? user?.storeID?.storeName || "-"
+                        : "-"}
+                    </span>
                   </td>
 
                   {/* Role */}
@@ -283,7 +297,7 @@ const AllUserPage = () => {
 
                   {/* Joined */}
                   <td className="px-5 py-4">
-                    <span className="text-sm text-gray-500">{user.joined}</span>
+                    <span className="text-sm text-gray-500">{new Date(user?.createdAt).toLocaleDateString("en-in")}</span>
                   </td>
 
                   {/* Status */}

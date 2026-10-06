@@ -18,4 +18,6 @@ route.post(
 
 route.get("/getAllStores", storeController.getAllStoresController);
 
+route.get("/getAllUsers", storeController.getAllUsersController);
+
 module.exports = route;

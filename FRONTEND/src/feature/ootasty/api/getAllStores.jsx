@@ -5,3 +5,9 @@ export const getAllStoresAPI = async () => {
 
   return response;
 };
+
+export const getAllUsersAPI = async () => {
+    const response = await axiosInsatnce.get("/api/v2/store/getAllUsers")
+
+    return response
+}
