@@ -16,4 +16,6 @@ route.post(
   storeController.createStoreController,
 );
 
+route.get("/getAllStores", storeController.getAllStoresController);
+
 module.exports = route;

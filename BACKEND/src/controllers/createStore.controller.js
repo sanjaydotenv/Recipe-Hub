@@ -31,4 +31,17 @@ const createStoreController = async (req, res) => {
   });
 };
 
-module.exports = { createStoreController };
+const getAllStoresController = async (req, res) => {
+  const allStores = await storeModel.find().populate("owner");
+
+  res.status(200).json({
+    message: "All Stores Fetched Successfully",
+    data: {
+      store: {
+        allStores,
+      },
+    },
+  });
+};
+
+module.exports = { createStoreController, getAllStoresController };

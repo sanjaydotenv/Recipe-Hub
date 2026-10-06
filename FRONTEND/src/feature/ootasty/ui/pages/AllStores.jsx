@@ -79,9 +79,12 @@ const AllStores = () => {
 
   const { allStoresData } = useAdminStores();
 
-  useEffect(() => {
-    allStoresData();
-  }, []);
+  const handleData = async () => {
+    const data = await allStoresData()
+
+    console.log(data)
+  }
+  handleData()
 
   return (
     <div className="w-full bg-[#f9f7f7] p-6 lg:p-8">
