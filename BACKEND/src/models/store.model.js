@@ -9,6 +9,9 @@ const storeSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
+  location: {
+    type: String,
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

@@ -12,6 +12,7 @@ import {
   FiShoppingBag,
 } from "react-icons/fi";
 import { useAdminStores } from "../../hooks/AdminStoreshook";
+import { useSelector } from "react-redux";
 
 const AllStores = () => {
   const stores = [
@@ -76,15 +77,14 @@ const AllStores = () => {
       status: "Active",
     },
   ];
-
   const { allStoresData } = useAdminStores();
+  useEffect(() => {
+    allStoresData();
+  }, []);
 
-  const handleData = async () => {
-    const data = await allStoresData()
+  const { allStores } = useSelector((state) => state.admin);
 
-    console.log(data)
-  }
-  handleData()
+  console.log(allStores)
 
   return (
     <div className="w-full bg-[#f9f7f7] p-6 lg:p-8">
@@ -126,7 +126,7 @@ const AllStores = () => {
             <div>
               <p className="text-sm text-gray-500">Total Stores</p>
 
-              <h2 className="text-3xl font-bold mt-2">842</h2>
+              <h2 className="text-3xl font-bold mt-2">{allStores?.length}</h2>
             </div>
 
             <div className="w-11 h-11 rounded-xl bg-emerald-50 text-[#064e3b] flex items-center justify-center">
@@ -143,7 +143,7 @@ const AllStores = () => {
             <div>
               <p className="text-sm text-gray-500">Active Stores</p>
 
-              <h2 className="text-3xl font-bold mt-2">716</h2>
+              <h2 className="text-3xl font-bold mt-2">{allStores?.length}</h2>
             </div>
 
             <div className="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
@@ -160,7 +160,7 @@ const AllStores = () => {
             <div>
               <p className="text-sm text-gray-500">Pending Stores</p>
 
-              <h2 className="text-3xl font-bold mt-2">24</h2>
+              <h2 className="text-3xl font-bold mt-2">0</h2>
             </div>
 
             <div className="w-11 h-11 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center">
@@ -177,7 +177,7 @@ const AllStores = () => {
             <div>
               <p className="text-sm text-gray-500">New This Month</p>
 
-              <h2 className="text-3xl font-bold mt-2">38</h2>
+              <h2 className="text-3xl font-bold mt-2">0</h2>
             </div>
 
             <div className="w-11 h-11 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center">
@@ -292,8 +292,8 @@ const AllStores = () => {
             </thead>
 
             <tbody className="divide-y divide-gray-100">
-              {stores.map((store) => (
-                <tr key={store.id} className="hover:bg-gray-50/70 transition">
+              {allStores?.map((store) => (
+                <tr key={store?._id} className="hover:bg-gray-50/70 transition">
                   {/* Store */}
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
@@ -303,11 +303,11 @@ const AllStores = () => {
 
                       <div>
                         <p className="text-sm font-semibold text-gray-800">
-                          {store.name}
+                          {store?.storeName}
                         </p>
 
                         <p className="text-xs text-gray-500 mt-0.5">
-                          Store ID #ST-{String(store.id).padStart(4, "0")}
+                          Store ID #ST-{String(store?._id).padStart(4, "0")}
                         </p>
                       </div>
                     </div>
@@ -316,10 +316,10 @@ const AllStores = () => {
                   {/* Owner */}
                   <td className="px-5 py-4">
                     <div>
-                      <p className="text-sm text-gray-700">{store.owner}</p>
+                      <p className="text-sm text-gray-700">{store?.owner?.fullName}</p>
 
                       <p className="text-xs text-gray-400 mt-0.5">
-                        {store.email}
+                        {store?.email}
                       </p>
                     </div>
                   </td>
@@ -327,7 +327,7 @@ const AllStores = () => {
                   {/* Category */}
                   <td className="px-5 py-4">
                     <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">
-                      {store.category}
+                      {store?.category[1]}
                     </span>
                   </td>
 
@@ -336,14 +336,14 @@ const AllStores = () => {
                     <div className="flex items-center gap-1.5 text-sm text-gray-600">
                       <FiMapPin size={14} className="text-gray-400" />
 
-                      {store.location}
+                      {store?.location}
                     </div>
                   </td>
 
                   {/* Joined */}
                   <td className="px-5 py-4">
                     <span className="text-sm text-gray-500">
-                      {store.joined}
+                      {new Date(store?.createdAt).toLocaleDateString("en-IN")}
                     </span>
                   </td>
 
