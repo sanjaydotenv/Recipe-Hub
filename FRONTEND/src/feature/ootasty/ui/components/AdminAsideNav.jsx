@@ -8,10 +8,11 @@ import {
   FiLogOut,
   FiChevronRight,
 } from "react-icons/fi";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 const AdminAsideNav = () => {
-const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
     <aside className="w-64 shrink-0 h-[calc(100vh-10px)] sticky top-30">
@@ -45,40 +46,51 @@ const navigate = useNavigate()
           <div className="space-y-1.5">
             {/* Dashboard */}
             <button
-            onClick={() => navigate("/admin")}
-              className="
+              onClick={() => navigate("/admin")}
+              className={`
                 w-full flex items-center gap-3
                 px-3 py-3 rounded-xl
-                bg-[#0a4938]
-                text-white
+                ${
+                  pathname === "/admin" &&
+                  `bg-[#0a4938]
+                text-white`
+                }
                 transition-all
-              "
+              `}
             >
-              <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg text-white bg-white/10 flex items-center justify-center">
                 <FiGrid size={17} />
               </div>
 
-              <span className="text-sm font-medium">Dashboard</span>
+              <span className="text-sm font-medium text-white">Dashboard</span>
 
               <FiChevronRight size={15} className="ml-auto text-emerald-300" />
             </button>
 
             {/* Users */}
             <button
-              className="
+              className={`
                 w-full flex items-center gap-3
                 px-3 py-3 rounded-xl
                 text-emerald-50/70
+                ${
+                  pathname === "/admin/users" &&
+                  `bg-[#0a4938]
+                text-white`
+                }
                 hover:bg-white/5
                 hover:text-white
                 transition-all
-              "
+              `}
             >
               <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
                 <FiUsers size={17} />
               </div>
 
-              <div onClick={() => navigate("/admin/users")} className="flex-1 text-left">
+              <div
+                onClick={() => navigate("/admin/users")}
+                className="flex-1 text-left "
+              >
                 <p className="text-sm font-medium">Users</p>
 
                 <p className="text-[10px] text-white/35">Manage users</p>
@@ -91,14 +103,20 @@ const navigate = useNavigate()
 
             {/* Stores */}
             <button
-              className="
+              onClick={() => navigate("/admin/stores")}
+              className={`
                 w-full flex items-center gap-3
                 px-3 py-3 rounded-xl
+                ${
+                  pathname === "/admin/stores" &&
+                  `bg-[#0a4938]
+                text-white`
+                }
                 text-emerald-50/70
                 hover:bg-white/5
                 hover:text-white
                 transition-all
-              "
+              `}
             >
               <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
                 <FiShoppingBag size={17} />

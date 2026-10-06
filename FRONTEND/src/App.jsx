@@ -22,6 +22,7 @@ import Products from "./feature/ootasty/ui/pages/Products";
 import AdminPage from "./feature/ootasty/ui/pages/AdminPage";
 import AdminLayout from "./layout/AdminLayout";
 import AllUserPage from "./feature/ootasty/ui/pages/AllUserPage";
+import AllStores from "./feature/ootasty/ui/pages/AllStores";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -117,6 +118,10 @@ const App = () => {
         {
           path: "users",
           element: <AllUserPage />
+        },
+        {
+          path: "stores",
+          element: <AllStores />
         }
       ]
     }
