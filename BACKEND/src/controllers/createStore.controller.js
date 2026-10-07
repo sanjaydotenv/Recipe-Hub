@@ -46,13 +46,13 @@ const getAllStoresController = async (req, res) => {
 };
 
 const getAllUsersController = async (req, res) => {
-  const allUsers = await userModel
-  .find()
-  .select("-password -refreshToken")
-  .populate({
-    path: "storeID",
-    select: "-_id storeName",
-  });
+  const allUsers = await userModel.aggregate([
+    {
+      $match: {
+        role: "seller",
+      },
+    },
+  ]);
 
   res.status(200).json({
     message: "All Users Fetched Successfully",
