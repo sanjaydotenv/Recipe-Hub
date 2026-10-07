@@ -122,14 +122,6 @@ const Dashboard = () => {
     <div className="min-h-screen bg-[#f6f8f7] text-[#151918]">
       <div className="flex min-h-screen">
         {/* ================= SIDEBAR ================= */}
-  
-
-          {/* Navigation */}
-    
-
-          {/* Store Card */}
-       
-
 
         {/* ================= MAIN ================= */}
         <main className="min-w-0 flex-1">

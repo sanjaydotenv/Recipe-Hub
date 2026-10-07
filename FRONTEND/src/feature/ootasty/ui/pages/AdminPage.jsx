@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   FiUsers,
   FiShoppingBag,
@@ -7,8 +7,20 @@ import {
   FiArrowUpRight,
   FiMoreHorizontal,
 } from "react-icons/fi";
+import { useSelector } from "react-redux";
+import { useAdminStores } from "../../hooks/AdminStoreshook";
 
 const AdminPage = () => {
+  const { getAllUsersData, allStoresData } = useAdminStores();
+
+  useEffect(() => {
+    getAllUsersData();
+    allStoresData();
+  }, []);
+
+  const { allStores, allUsers } = useSelector((state) => state.admin);
+
+
   return (
     <div className="min-h-screen w-full bg-[#f6f8f7] text-[#0f172a] p-6 lg:p-8">
       {/* Header */}
@@ -53,7 +65,7 @@ const AdminPage = () => {
 
           <p className="text-sm text-gray-500">Total Users</p>
 
-          <h2 className="text-3xl font-bold mt-1">12,480</h2>
+          <h2 className="text-3xl font-bold mt-1">{allUsers?.length}</h2>
 
           <p className="text-xs text-gray-400 mt-2">Compared to last month</p>
         </div>
@@ -73,7 +85,7 @@ const AdminPage = () => {
 
           <p className="text-sm text-gray-500">Total Stores</p>
 
-          <h2 className="text-3xl font-bold mt-1">842</h2>
+          <h2 className="text-3xl font-bold mt-1">{allUsers?.length}</h2>
 
           <p className="text-xs text-gray-400 mt-2">38 new stores this month</p>
         </div>
@@ -92,7 +104,7 @@ const AdminPage = () => {
 
           <p className="text-sm text-gray-500">Active Stores</p>
 
-          <h2 className="text-3xl font-bold mt-1">716</h2>
+          <h2 className="text-3xl font-bold mt-1">0</h2>
 
           <p className="text-xs text-gray-400 mt-2">85% of all stores</p>
         </div>
@@ -111,7 +123,7 @@ const AdminPage = () => {
 
           <p className="text-sm text-gray-500">Pending Requests</p>
 
-          <h2 className="text-3xl font-bold mt-1">24</h2>
+          <h2 className="text-3xl font-bold mt-1">0</h2>
 
           <p className="text-xs text-gray-400 mt-2">Waiting for approval</p>
         </div>
@@ -136,54 +148,25 @@ const AdminPage = () => {
           </div>
 
           <div className="divide-y divide-gray-100">
-            {[
-              {
-                name: "Rahul Sharma",
-                email: "rahul@gmail.com",
-                store: "Rahul Foods",
-                status: "Active",
-                color: "bg-blue-100 text-blue-700",
-              },
-              {
-                name: "Priya Verma",
-                email: "priya@gmail.com",
-                store: "Priya Kitchen",
-                status: "Active",
-                color: "bg-pink-100 text-pink-700",
-              },
-              {
-                name: "Aman Singh",
-                email: "aman@gmail.com",
-                store: "Aman Store",
-                status: "Pending",
-                color: "bg-orange-100 text-orange-700",
-              },
-              {
-                name: "Neha Patel",
-                email: "neha@gmail.com",
-                store: "Neha Boutique",
-                status: "Active",
-                color: "bg-violet-100 text-violet-700",
-              },
-            ].map((user, index) => (
+            {allUsers?.map((user) => (
               <div
-                key={index}
+                key={user._id}
                 className="flex items-center gap-4 px-5 py-4 hover:bg-gray-50 transition"
               >
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm ${user.color}`}
                 >
-                  {user.name.charAt(0)}
+                  {user?.fullName?.charAt(0)}
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-sm font-semibold">{user.name}</h3>
+                  <h3 className="text-sm font-semibold">{user?.fullName}</h3>
 
                   <p className="text-xs text-gray-500 truncate">{user.email}</p>
                 </div>
 
                 <div className="hidden sm:block text-sm text-gray-600">
-                  {user.store}
+                  {user?.storeID?.storeName} Kitchen
                 </div>
 
                 <span
@@ -222,31 +205,31 @@ const AdminPage = () => {
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm text-gray-500">Active stores</span>
 
-              <span className="text-sm font-semibold">716</span>
+              <span className="text-sm font-semibold">{allStores?.length}</span>
             </div>
 
             <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-              <div className="h-full w-[85%] bg-[#064e3b] rounded-full" />
+              <div className={`h-full w-[${allStores?.length}%] bg-[#064e3b] rounded-full`} />
             </div>
 
             <div className="flex items-center justify-between mt-6 mb-3">
               <span className="text-sm text-gray-500">Pending stores</span>
 
-              <span className="text-sm font-semibold">24</span>
+              <span className="text-sm font-semibold">0</span>
             </div>
 
             <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-              <div className="h-full w-[18%] bg-orange-400 rounded-full" />
+              <div className="h-full w-[0%] bg-orange-400 rounded-full" />
             </div>
 
             <div className="flex items-center justify-between mt-6 mb-3">
               <span className="text-sm text-gray-500">Inactive stores</span>
 
-              <span className="text-sm font-semibold">102</span>
+              <span className="text-sm font-semibold">0</span>
             </div>
 
             <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-              <div className="h-full w-[12%] bg-gray-400 rounded-full" />
+              <div className="h-full w-[0%] bg-gray-400 rounded-full" />
             </div>
 
             {/* Bottom Card */}
@@ -255,7 +238,7 @@ const AdminPage = () => {
                 <div>
                   <p className="text-xs text-gray-500">Total stores</p>
 
-                  <p className="text-2xl font-bold mt-1">842</p>
+                  <p className="text-2xl font-bold mt-1">{allStores?.length}</p>
                 </div>
 
                 <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-[#064e3b] shadow-sm">
