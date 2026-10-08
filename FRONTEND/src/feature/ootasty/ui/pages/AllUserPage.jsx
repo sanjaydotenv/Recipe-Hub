@@ -236,7 +236,7 @@ const AllUserPage = () => {
                 </th>
 
                 <th className="text-left px-5 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                  Store
+                  Store Name
                 </th>
 
                 <th className="text-left px-5 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">
@@ -282,9 +282,10 @@ const AllUserPage = () => {
                   {/* Store */}
                   <td className="px-5 py-4">
                     <span className="text-sm text-gray-700">
+                      
                       {user.role === "seller"
-                        ? user?.storeID?.storeName || "-"
-                        : "-"}
+                        ? user?.storeData?.storeName 
+                        : "N/A"}
                     </span>
                   </td>
 
@@ -297,6 +298,7 @@ const AllUserPage = () => {
 
                   {/* Joined */}
                   <td className="px-5 py-4">
+                    
                     <span className="text-sm text-gray-500">{new Date(user?.createdAt).toLocaleDateString("en-in")}</span>
                   </td>
 

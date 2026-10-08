@@ -49,7 +49,36 @@ const getAllUsersController = async (req, res) => {
   const allUsers = await userModel.aggregate([
     {
       $match: {
-        role: "seller",
+        $or: [
+          {
+            role: "user",
+          },
+          {
+            role: "seller",
+          },
+        ],
+      },
+    },
+    {
+      $lookup: {
+        from: "stores",
+        localField: "storeID",
+        foreignField: "_id",
+        as: "storeData",
+        pipeline: [
+          {
+            $project: {
+              storeName: 1,
+              _id: 0,
+            },
+          },
+        ],
+      },
+    },
+    {
+      $unwind: {
+        path: "$storeData",
+        preserveNullAndEmptyArrays: true,
       },
     },
   ]);

@@ -84,8 +84,6 @@ const AllStores = () => {
 
   const { allStores } = useSelector((state) => state.admin);
 
-  console.log(allStores)
-
   return (
     <div className="w-full bg-[#f9f7f7] p-6 lg:p-8">
       {/* ================= HEADER ================= */}
@@ -316,7 +314,10 @@ const AllStores = () => {
                   {/* Owner */}
                   <td className="px-5 py-4">
                     <div>
-                      <p className="text-sm text-gray-700">{store?.owner?.fullName}</p>
+                      <p className="text-sm text-gray-700">
+                        {store?.owner?.fullName?.charAt(0).toUpperCase() +
+                          store?.owner?.fullName?.slice(1)}
+                      </p>
 
                       <p className="text-xs text-gray-400 mt-0.5">
                         {store?.email}
