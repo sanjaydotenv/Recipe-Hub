@@ -166,7 +166,7 @@ const AdminPage = () => {
                 </div>
 
                 <div className="hidden sm:block text-sm text-gray-600">
-                  {user?.storeID?.storeName} Kitchen
+                  {user?.role === "seller" ? user?.storeData?.storeName : "N/A" }
                 </div>
 
                 <span
