@@ -163,9 +163,45 @@ const refreshToken = async (req, res) => {
   });
 };
 
+const logoutController = async (req, res) => {
+  try {
+    const userId = req.userProfile?._id;
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized user",
+      });
+    }
+
+    await User.findByIdAndUpdate(userId, {
+      $unset: {
+        refreshToken: 1,
+      },
+    });
+
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
+    });
+  } catch (error) {
+    console.error("Logout error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong during logout",
+    });
+  }
+};
+
 module.exports = {
   userRegisterController,
   userLoginController,
   userProfileController,
   refreshToken,
+  logoutController,
 };
