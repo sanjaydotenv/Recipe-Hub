@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { handleLoginUserData, handleUserData } from "../api/users";
+import { handleLoginUserData, handleLogout, handleUserData } from "../api/users";
 import { useDispatch } from "react-redux";
 import { userLogin, userRegister } from "../state/authSlice";
 import { useNavigate } from "react-router";
@@ -41,10 +41,15 @@ export const useHandleData = () => {
     setFormData({ ...formData, [data.target.name]: data.target.value });
   };
 
+  const handleLogoutUserHook = async (accessToken) => {
+    await handleLogout(accessToken)
+  }
+
   return {
     handleChange,
     handleSubmit,
     handleChangeLoginUser,
     handleSubmitLoginUser,
+    handleLogoutUserHook
   };
 };

@@ -174,7 +174,7 @@ const logoutController = async (req, res) => {
       });
     }
 
-    await User.findByIdAndUpdate(userId, {
+    await userModel.findByIdAndUpdate(userId, {
       $unset: {
         refreshToken: 1,
       },

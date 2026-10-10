@@ -35,3 +35,24 @@ export const handleAccessToken = async (dispatch) => {
 
   return accessToken;
 };
+
+export const handleLogout = async (accessToken) => {
+  try {
+    const res = await axiosInsatnce.post(
+      "/auth/api/v1/user/logout",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        withCredentials: true,
+      },
+    );
+
+    return res.data;
+  } catch (error) {
+    console.error("Logout failed:", error.response?.data || error.message);
+
+    throw error;
+  }
+};

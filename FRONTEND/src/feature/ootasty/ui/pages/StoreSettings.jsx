@@ -19,6 +19,7 @@ import {
 
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { useHandleData } from "../../hooks/userHook";
 
 const StoreSettings = () => {
   const navigate = useNavigate();
@@ -26,8 +27,11 @@ const StoreSettings = () => {
   // Redux user state
   const user = useSelector((state) => state.authUser);
 
+
   const [activeTab, setActiveTab] = useState("store");
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  const { handleLogoutUserHook } = useHandleData();
 
   // Store details
   // Replace fallback data with your backend API response.
@@ -86,11 +90,8 @@ const StoreSettings = () => {
 
   // Logout handler
   const handleLogout = async () => {
-    // TODO:
-    // 1. Call your backend logout API.
-    // 2. Clear the Redux authentication state.
-    // 3. Invalidate the refresh-token cookie on the server.
 
+    await handleLogoutUserHook(user.accessToken)
     setShowLogoutModal(false);
     navigate("/login", { replace: true });
   };
@@ -105,18 +106,14 @@ const StoreSettings = () => {
           </div>
 
           <div className="min-w-0 flex-1">
-            <p className="text-xs font-medium text-slate-500">
-              {label}
-            </p>
+            <p className="text-xs font-medium text-slate-500">{label}</p>
 
             <p className="mt-1 break-words text-sm font-semibold text-slate-900">
               {value || "Not available"}
             </p>
 
             {description && (
-              <p className="mt-1 text-xs text-slate-400">
-                {description}
-              </p>
+              <p className="mt-1 text-xs text-slate-400">{description}</p>
             )}
           </div>
         </div>
@@ -126,7 +123,6 @@ const StoreSettings = () => {
 
   return (
     <div className="min-h-full bg-[#f9f7f7] p-4 sm:p-6 lg:p-8">
-
       {/* Page Header */}
       <div className="mb-7 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
@@ -153,9 +149,7 @@ const StoreSettings = () => {
               Account Active
             </p>
 
-            <p className="text-[10px] text-slate-400">
-              Seller account
-            </p>
+            <p className="text-[10px] text-slate-400">Seller account</p>
           </div>
         </div>
       </div>
@@ -193,13 +187,9 @@ const StoreSettings = () => {
           </div>
 
           <div className="shrink-0 rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-xs text-emerald-100/50">
-              Store owner
-            </p>
+            <p className="text-xs text-emerald-100/50">Store owner</p>
 
-            <p className="mt-1 font-semibold">
-              {owner.fullName}
-            </p>
+            <p className="mt-1 font-semibold">{owner.fullName}</p>
 
             <p className="mt-1 text-xs capitalize text-emerald-100/60">
               {owner.role}
@@ -210,7 +200,6 @@ const StoreSettings = () => {
 
       {/* Main Settings Layout */}
       <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[260px_minmax(0,1fr)]">
-
         {/* Settings Sidebar */}
         <aside className="rounded-2xl border border-slate-200 bg-white p-3">
           <p className="px-3 py-3 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
@@ -255,9 +244,7 @@ const StoreSettings = () => {
           >
             <FiLogOut size={18} />
 
-            <span className="flex-1 text-sm font-medium">
-              Logout
-            </span>
+            <span className="flex-1 text-sm font-medium">Logout</span>
 
             <FiChevronRight size={15} />
           </button>
@@ -266,20 +253,18 @@ const StoreSettings = () => {
             <div className="flex items-center gap-2 text-[#087f5b]">
               <FiShield size={16} />
 
-              <span className="text-xs font-semibold">
-                Your account
-              </span>
+              <span className="text-xs font-semibold">Your account</span>
             </div>
 
             <p className="mt-2 text-xs leading-5 text-slate-500">
-              Keep your account information accurate and never share your password.
+              Keep your account information accurate and never share your
+              password.
             </p>
           </div>
         </aside>
 
         {/* Settings Content */}
         <section className="min-w-0 space-y-6">
-
           {/* STORE INFORMATION */}
           {activeTab === "store" && (
             <>
@@ -384,7 +369,8 @@ const StoreSettings = () => {
                   />
 
                   <p className="text-xs leading-5 text-slate-600">
-                    Store IDs are system-generated identifiers. Contact support if you need help with your registered store.
+                    Store IDs are system-generated identifiers. Contact support
+                    if you need help with your registered store.
                   </p>
                 </div>
               </div>
@@ -404,9 +390,7 @@ const StoreSettings = () => {
                     {owner.fullName}
                   </h3>
 
-                  <p className="mt-1 text-sm text-slate-500">
-                    Store Owner
-                  </p>
+                  <p className="mt-1 text-sm text-slate-500">Store Owner</p>
 
                   <span className="mt-2 inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold capitalize text-[#087f5b]">
                     {owner.role}
@@ -452,7 +436,8 @@ const StoreSettings = () => {
                 </div>
 
                 <p className="mt-2 text-sm leading-6 text-slate-500">
-                  Your account is registered as a seller and is associated with your food store.
+                  Your account is registered as a seller and is associated with
+                  your food store.
                 </p>
               </div>
             </div>
@@ -483,7 +468,8 @@ const StoreSettings = () => {
                     </p>
 
                     <p className="mt-1 text-xs leading-5 text-slate-500">
-                      Your password should remain private. Password changes should be handled through a secure backend endpoint.
+                      Your password should remain private. Password changes
+                      should be handled through a secure backend endpoint.
                     </p>
                   </div>
                 </div>
@@ -523,9 +509,7 @@ const StoreSettings = () => {
 
               {/* Logout */}
               <div className="mt-6 border-t border-slate-100 pt-6">
-                <h4 className="font-semibold text-slate-900">
-                  Sign out
-                </h4>
+                <h4 className="font-semibold text-slate-900">Sign out</h4>
 
                 <p className="mt-1 text-sm text-slate-500">
                   Sign out of your seller account on this device.
@@ -558,10 +542,7 @@ const StoreSettings = () => {
               <FiLogOut size={25} />
             </div>
 
-            <h3
-              id="logout-title"
-              className="text-xl font-bold text-slate-900"
-            >
+            <h3 id="logout-title" className="text-xl font-bold text-slate-900">
               Logout from account?
             </h3>
 

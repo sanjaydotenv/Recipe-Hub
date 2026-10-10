@@ -18,6 +18,6 @@ route.get(
   userController.userProfileController,
 );
 route.post("/refresh-token", userController.refreshToken);
-route.post("/logout", authMiddleware.authorization, userController.logoutController);
+route.post("/logout", authMiddleware.authentication, userController.logoutController);
 
 module.exports = route;
