@@ -15,7 +15,7 @@ const AdminAsideNav = () => {
   const { pathname } = useLocation();
 
   return (
-    <aside className="w-64 shrink-0 h-[calc(100vh-10px)] sticky top-30">
+    <aside className="w-64 shrink-0 h-[calc(100vh-10px)] mb-50">
       <div className="h-full bg-[#06251c] rounded-2xl overflow-hidden border border-[#0d3a2d] flex flex-col">
         {/* Admin Header */}
         <div className="px-5 py-5 border-b border-white/10">
