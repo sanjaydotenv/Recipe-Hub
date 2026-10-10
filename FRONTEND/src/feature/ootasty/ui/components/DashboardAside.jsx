@@ -92,7 +92,7 @@ const DashboardAside = () => {
 
             <SidebarItem
               icon={Package}
-              label="Products"
+              label="Foods"
               to="/store/products"
             />
 
@@ -120,7 +120,7 @@ const DashboardAside = () => {
             <SidebarItem
               icon={Settings}
               label="Settings"
-              to="/seller/settings"
+              to="/store/settings"
             />
           </nav>
         </div>

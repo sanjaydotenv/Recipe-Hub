@@ -33,6 +33,7 @@ import {
   setAccessToken,
   userRegister,
 } from "./feature/ootasty/state/authSlice";
+import StoreSettings from "./feature/ootasty/ui/pages/StoreSettings";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -161,6 +162,10 @@ const App = () => {
           path: "addFood",
           element: <AddFood />,
         },
+        {
+          path: "settings",
+          element: <StoreSettings />
+        }
       ],
     },
   ];
