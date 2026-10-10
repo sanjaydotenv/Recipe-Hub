@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+
 import {
+  FiShoppingBag,
   FiUser,
   FiMail,
   FiPhone,
@@ -15,23 +17,20 @@ import {
   FiAlertCircle,
 } from "react-icons/fi";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 const StoreSettings = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Apne authSlice ke according selector adjust karna.
+  // Redux user state
   const user = useSelector((state) => state.authUser);
-
-  console.log(user)
 
   const [activeTab, setActiveTab] = useState("store");
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-  // Temporary fallback data.
-  // API se store fetch karne ke baad ise replace kar dena.
+  // Store details
+  // Replace fallback data with your backend API response.
   const store = {
     _id: user?.storeID || "6aca535079761045b332e826",
     storeName: "joy's Food",
@@ -40,6 +39,7 @@ const StoreSettings = () => {
     createdAt: "2026-10-10T15:01:36.930Z",
   };
 
+  // Owner details
   const owner = {
     fullName: user?.fullName || "joy",
     email: user?.email || "joy@gmail.com",
@@ -48,6 +48,7 @@ const StoreSettings = () => {
     createdAt: user?.createdAt || "2026-10-10T15:00:30.942Z",
   };
 
+  // Format date
   const formatDate = (date) => {
     if (!date) return "Not available";
 
@@ -64,11 +65,12 @@ const StoreSettings = () => {
     });
   };
 
+  // Settings tabs
   const tabs = [
     {
       id: "store",
       label: "Store Information",
-    //   icon: FiStore,
+      icon: FiShoppingBag,
     },
     {
       id: "owner",
@@ -82,41 +84,49 @@ const StoreSettings = () => {
     },
   ];
 
+  // Logout handler
   const handleLogout = async () => {
-    // Yahan apna backend logout API call karna.
-    // Successful logout ke baad Redux auth state clear karna.
-    // Sirf access token clear karne se refresh-token cookie
-    // automatically invalidate nahi hoti.
+    // TODO:
+    // 1. Call your backend logout API.
+    // 2. Clear the Redux authentication state.
+    // 3. Invalidate the refresh-token cookie on the server.
 
     setShowLogoutModal(false);
-
     navigate("/login", { replace: true });
   };
 
-  const InfoCard = ({ icon: Icon, label, value, description }) => (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-emerald-200 hover:shadow-sm">
-      <div className="flex items-start gap-3">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-[#087f5b]">
-          <Icon size={19} />
-        </div>
+  // Reusable information card
+  const InfoCard = ({ icon: Icon, label, value, description }) => {
+    return (
+      <div className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-emerald-200 hover:shadow-sm">
+        <div className="flex items-start gap-3">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-[#087f5b]">
+            <Icon size={19} />
+          </div>
 
-        <div className="min-w-0 flex-1">
-          <p className="text-xs font-medium text-slate-500">{label}</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-xs font-medium text-slate-500">
+              {label}
+            </p>
 
-          <p className="mt-1 break-words text-sm font-semibold text-slate-900">
-            {value || "Not available"}
-          </p>
+            <p className="mt-1 break-words text-sm font-semibold text-slate-900">
+              {value || "Not available"}
+            </p>
 
-          {description && (
-            <p className="mt-1 text-xs text-slate-400">{description}</p>
-          )}
+            {description && (
+              <p className="mt-1 text-xs text-slate-400">
+                {description}
+              </p>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="min-h-full bg-[#f9f7f7] p-4 sm:p-6 lg:p-8">
+
       {/* Page Header */}
       <div className="mb-7 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
@@ -143,7 +153,9 @@ const StoreSettings = () => {
               Account Active
             </p>
 
-            <p className="text-[10px] text-slate-400">Seller account</p>
+            <p className="text-[10px] text-slate-400">
+              Seller account
+            </p>
           </div>
         </div>
       </div>
@@ -156,7 +168,7 @@ const StoreSettings = () => {
 
         <div className="relative z-10 flex flex-col gap-6 sm:flex-row sm:items-center">
           <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/10 text-[#f8a90a] shadow-lg">
-            {/* <FiStore size={36} /> */}
+            <FiShoppingBag size={36} />
           </div>
 
           <div className="min-w-0 flex-1">
@@ -181,17 +193,24 @@ const StoreSettings = () => {
           </div>
 
           <div className="shrink-0 rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-xs text-emerald-100/50">Store owner</p>
+            <p className="text-xs text-emerald-100/50">
+              Store owner
+            </p>
 
-            <p className="mt-1 font-semibold">{owner.fullName}</p>
+            <p className="mt-1 font-semibold">
+              {owner.fullName}
+            </p>
 
-            <p className="mt-1 text-xs text-emerald-100/60">{owner.role}</p>
+            <p className="mt-1 text-xs capitalize text-emerald-100/60">
+              {owner.role}
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Main Layout */}
+      {/* Main Settings Layout */}
       <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[260px_minmax(0,1fr)]">
+
         {/* Settings Sidebar */}
         <aside className="rounded-2xl border border-slate-200 bg-white p-3">
           <p className="px-3 py-3 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
@@ -228,6 +247,7 @@ const StoreSettings = () => {
 
           <div className="my-4 border-t border-slate-100" />
 
+          {/* Logout */}
           <button
             type="button"
             onClick={() => setShowLogoutModal(true)}
@@ -235,7 +255,9 @@ const StoreSettings = () => {
           >
             <FiLogOut size={18} />
 
-            <span className="flex-1 text-sm font-medium">Logout</span>
+            <span className="flex-1 text-sm font-medium">
+              Logout
+            </span>
 
             <FiChevronRight size={15} />
           </button>
@@ -244,19 +266,21 @@ const StoreSettings = () => {
             <div className="flex items-center gap-2 text-[#087f5b]">
               <FiShield size={16} />
 
-              <span className="text-xs font-semibold">Your account</span>
+              <span className="text-xs font-semibold">
+                Your account
+              </span>
             </div>
 
             <p className="mt-2 text-xs leading-5 text-slate-500">
-              Keep your account information accurate and never share your
-              password.
+              Keep your account information accurate and never share your password.
             </p>
           </div>
         </aside>
 
         {/* Settings Content */}
         <section className="min-w-0 space-y-6">
-          {/* Store Information */}
+
+          {/* STORE INFORMATION */}
           {activeTab === "store" && (
             <>
               <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7">
@@ -272,13 +296,13 @@ const StoreSettings = () => {
                   </div>
 
                   <div className="rounded-xl bg-amber-50 p-3 text-amber-600">
-                    <FiStore size={20} />
+                    <FiShoppingBag size={20} />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <InfoCard
-                    icon={FiStore}
+                    icon={FiShoppingBag}
                     label="Store Name"
                     value={store.storeName}
                     description="Your registered business name"
@@ -306,6 +330,7 @@ const StoreSettings = () => {
                   />
                 </div>
 
+                {/* Categories */}
                 <div className="mt-7">
                   <div className="mb-4 flex items-center gap-2">
                     <FiTag className="text-[#087f5b]" size={18} />
@@ -359,168 +384,168 @@ const StoreSettings = () => {
                   />
 
                   <p className="text-xs leading-5 text-slate-600">
-                    Store IDs are system-generated identifiers. Contact support
-                    if you need help with your registered store.
+                    Store IDs are system-generated identifiers. Contact support if you need help with your registered store.
                   </p>
                 </div>
               </div>
             </>
           )}
 
-          {/* Owner Information */}
+          {/* OWNER INFORMATION */}
           {activeTab === "owner" && (
-            <>
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7">
-                <div className="mb-7 flex items-center gap-4">
-                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#06251c] text-xl font-bold uppercase text-[#f8a90a]">
-                    {owner.fullName?.charAt(0) || "S"}
-                  </div>
-
-                  <div className="min-w-0">
-                    <h3 className="break-words text-xl font-bold text-slate-900">
-                      {owner.fullName}
-                    </h3>
-
-                    <p className="mt-1 text-sm text-slate-500">Store Owner</p>
-
-                    <span className="mt-2 inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold capitalize text-[#087f5b]">
-                      {owner.role}
-                    </span>
-                  </div>
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7">
+              <div className="mb-7 flex items-center gap-4">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#06251c] text-xl font-bold uppercase text-[#f8a90a]">
+                  {owner.fullName?.charAt(0) || "S"}
                 </div>
 
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <InfoCard
-                    icon={FiUser}
-                    label="Full Name"
-                    value={owner.fullName}
-                  />
-
-                  <InfoCard
-                    icon={FiMail}
-                    label="Email Address"
-                    value={owner.email}
-                    description="Registered email"
-                  />
-
-                  <InfoCard
-                    icon={FiPhone}
-                    label="Phone Number"
-                    value={owner.phone}
-                    description="Registered contact number"
-                  />
-
-                  <InfoCard
-                    icon={FiCalendar}
-                    label="Account Created"
-                    value={formatDate(owner.createdAt)}
-                  />
-                </div>
-
-                <div className="mt-6 rounded-xl border border-slate-100 bg-[#f9f7f7] p-4">
-                  <div className="flex items-center gap-2">
-                    <FiShield className="text-[#087f5b]" size={18} />
-
-                    <p className="text-sm font-semibold text-slate-800">
-                      Account Role
-                    </p>
-                  </div>
-
-                  <p className="mt-2 text-sm leading-6 text-slate-500">
-                    Your account is registered as a seller and is associated
-                    with your food store.
-                  </p>
-                </div>
-              </div>
-            </>
-          )}
-
-          {/* Account Security */}
-          {activeTab === "security" && (
-            <>
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7">
-                <div className="mb-6">
-                  <h3 className="text-lg font-bold text-slate-900">
-                    Account & Security
+                <div className="min-w-0">
+                  <h3 className="break-words text-xl font-bold text-slate-900">
+                    {owner.fullName}
                   </h3>
 
                   <p className="mt-1 text-sm text-slate-500">
-                    Information about your account and security.
-                  </p>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4 rounded-xl border border-slate-100 p-4">
-                    <div className="rounded-xl bg-emerald-50 p-3 text-[#087f5b]">
-                      <FiLock size={20} />
-                    </div>
-
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-semibold text-slate-800">
-                        Password Protection
-                      </p>
-
-                      <p className="mt-1 text-xs leading-5 text-slate-500">
-                        Your password should remain private. Password changes
-                        should be handled through a secure backend endpoint.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4 rounded-xl border border-slate-100 p-4">
-                    <div className="rounded-xl bg-emerald-50 p-3 text-[#087f5b]">
-                      <FiShield size={20} />
-                    </div>
-
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-semibold text-slate-800">
-                        Account Role
-                      </p>
-
-                      <p className="mt-1 text-xs text-slate-500">Seller</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4 rounded-xl border border-slate-100 p-4">
-                    <div className="rounded-xl bg-emerald-50 p-3 text-[#087f5b]">
-                      <FiClock size={20} />
-                    </div>
-
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-semibold text-slate-800">
-                        Account Created
-                      </p>
-
-                      <p className="mt-1 text-xs text-slate-500">
-                        {formatDate(owner.createdAt)}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-6 border-t border-slate-100 pt-6">
-                  <h4 className="font-semibold text-slate-900">Sign out</h4>
-
-                  <p className="mt-1 text-sm text-slate-500">
-                    Sign out of your seller account on this device.
+                    Store Owner
                   </p>
 
-                  <button
-                    type="button"
-                    onClick={() => setShowLogoutModal(true)}
-                    className="mt-4 flex items-center gap-2 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-100"
-                  >
-                    <FiLogOut size={17} />
-                    Logout from account
-                  </button>
+                  <span className="mt-2 inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold capitalize text-[#087f5b]">
+                    {owner.role}
+                  </span>
                 </div>
               </div>
-            </>
+
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <InfoCard
+                  icon={FiUser}
+                  label="Full Name"
+                  value={owner.fullName}
+                />
+
+                <InfoCard
+                  icon={FiMail}
+                  label="Email Address"
+                  value={owner.email}
+                  description="Registered email"
+                />
+
+                <InfoCard
+                  icon={FiPhone}
+                  label="Phone Number"
+                  value={owner.phone}
+                  description="Registered contact number"
+                />
+
+                <InfoCard
+                  icon={FiCalendar}
+                  label="Account Created"
+                  value={formatDate(owner.createdAt)}
+                />
+              </div>
+
+              <div className="mt-6 rounded-xl border border-slate-100 bg-[#f9f7f7] p-4">
+                <div className="flex items-center gap-2">
+                  <FiShield className="text-[#087f5b]" size={18} />
+
+                  <p className="text-sm font-semibold text-slate-800">
+                    Account Role
+                  </p>
+                </div>
+
+                <p className="mt-2 text-sm leading-6 text-slate-500">
+                  Your account is registered as a seller and is associated with your food store.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* ACCOUNT & SECURITY */}
+          {activeTab === "security" && (
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7">
+              <div className="mb-6">
+                <h3 className="text-lg font-bold text-slate-900">
+                  Account & Security
+                </h3>
+
+                <p className="mt-1 text-sm text-slate-500">
+                  Information about your account and security.
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-start gap-4 rounded-xl border border-slate-100 p-4">
+                  <div className="rounded-xl bg-emerald-50 p-3 text-[#087f5b]">
+                    <FiLock size={20} />
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-semibold text-slate-800">
+                      Password Protection
+                    </p>
+
+                    <p className="mt-1 text-xs leading-5 text-slate-500">
+                      Your password should remain private. Password changes should be handled through a secure backend endpoint.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 rounded-xl border border-slate-100 p-4">
+                  <div className="rounded-xl bg-emerald-50 p-3 text-[#087f5b]">
+                    <FiShield size={20} />
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-semibold text-slate-800">
+                      Account Role
+                    </p>
+
+                    <p className="mt-1 text-xs capitalize text-slate-500">
+                      {owner.role}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 rounded-xl border border-slate-100 p-4">
+                  <div className="rounded-xl bg-emerald-50 p-3 text-[#087f5b]">
+                    <FiClock size={20} />
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-semibold text-slate-800">
+                      Account Created
+                    </p>
+
+                    <p className="mt-1 text-xs text-slate-500">
+                      {formatDate(owner.createdAt)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Logout */}
+              <div className="mt-6 border-t border-slate-100 pt-6">
+                <h4 className="font-semibold text-slate-900">
+                  Sign out
+                </h4>
+
+                <p className="mt-1 text-sm text-slate-500">
+                  Sign out of your seller account on this device.
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() => setShowLogoutModal(true)}
+                  className="mt-4 flex items-center gap-2 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-100"
+                >
+                  <FiLogOut size={17} />
+                  Logout from account
+                </button>
+              </div>
+            </div>
           )}
         </section>
       </div>
 
-      {/* Logout Confirmation Modal */}
+      {/* LOGOUT CONFIRMATION MODAL */}
       {showLogoutModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
           <div
@@ -533,7 +558,10 @@ const StoreSettings = () => {
               <FiLogOut size={25} />
             </div>
 
-            <h3 id="logout-title" className="text-xl font-bold text-slate-900">
+            <h3
+              id="logout-title"
+              className="text-xl font-bold text-slate-900"
+            >
               Logout from account?
             </h3>
 
