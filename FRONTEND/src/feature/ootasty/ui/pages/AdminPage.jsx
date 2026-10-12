@@ -21,6 +21,7 @@ const AdminPage = () => {
   const { allStores, allUsers } = useSelector((state) => state.admin);
 
 
+
   return (
     <div className="min-h-screen w-full bg-[#f6f8f7] text-[#0f172a] p-6 lg:p-8">
       {/* Header */}
@@ -85,7 +86,7 @@ const AdminPage = () => {
 
           <p className="text-sm text-gray-500">Total Stores</p>
 
-          <h2 className="text-3xl font-bold mt-1">{allUsers?.length}</h2>
+          <h2 className="text-3xl font-bold mt-1">{allStores?.length}</h2>
 
           <p className="text-xs text-gray-400 mt-2">38 new stores this month</p>
         </div>
@@ -104,7 +105,7 @@ const AdminPage = () => {
 
           <p className="text-sm text-gray-500">Active Stores</p>
 
-          <h2 className="text-3xl font-bold mt-1">0</h2>
+          <h2 className="text-3xl font-bold mt-1">{allStores?.length}</h2>
 
           <p className="text-xs text-gray-400 mt-2">85% of all stores</p>
         </div>
