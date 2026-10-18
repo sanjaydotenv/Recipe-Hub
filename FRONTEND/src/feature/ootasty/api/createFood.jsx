@@ -11,6 +11,10 @@ export const addFood = async (data, accessToken) => {
   return response;
 };
 
-export const deleteFood = async (id) => {
-  await axiosInsatnce.delete(`/api/v3/foods/delete-food/${id}`);
+export const deleteFood = async (id, accessToken) => {
+  await axiosInsatnce.delete(`/api/v3/foods/delete-food/${id}`, {
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+    },
+  });
 };
