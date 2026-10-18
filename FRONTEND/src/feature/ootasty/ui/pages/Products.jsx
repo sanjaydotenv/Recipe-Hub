@@ -15,7 +15,7 @@ import { useProductHook } from "../../hooks/productHook";
 import { useSelector } from "react-redux";
 
 const Products = () => {
-  const { getAllFoodsData } = useProductHook();
+  const { getAllFoodsData , deleteProduct } = useProductHook();
   const { allFoodsData } = useSelector((state) => state.foods);
 
   useEffect(() => {
@@ -316,6 +316,7 @@ const Products = () => {
                         </button>
 
                         <button
+                        onClick={() => deleteProduct(food._id)}
                           className="rounded-lg p-2 text-[#7e8b86] transition hover:bg-[#fff1f1] hover:text-red-500"
                           title="Delete"
                         >

@@ -8,5 +8,10 @@ export const useProductHook = () => {
       await handleFoodsData(dispatch);
   };
 
-  return { getAllFoodsData };
+
+  const deleteProduct = async (PRDID) => {
+    console.log(PRDID)
+  }
+
+  return { getAllFoodsData , deleteProduct};
 };
