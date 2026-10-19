@@ -133,7 +133,7 @@ const AdminPage = () => {
       {/* Main Content */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         {/* Recent Users */}
-        <div className="xl:col-span-2 bg-white rounded-2xl border border-gray-200 shadow-sm">
+        <div className="xl:col-span-2 bg-white rounded-2xl border border-gray-300 shadow-sm">
           <div className="flex items-center justify-between p-5 border-b border-gray-100">
             <div>
               <h2 className="font-semibold text-lg">Recent Users</h2>
@@ -143,7 +143,7 @@ const AdminPage = () => {
               </p>
             </div>
 
-            <button className="text-sm font-medium text-[#064e3b] hover:underline">
+            <button className="text-sm font-medium text-[#064f3b] hover:underline">
               View all
             </button>
           </div>

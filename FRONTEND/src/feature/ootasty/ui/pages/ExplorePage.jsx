@@ -19,7 +19,7 @@ const ExplorePage = () => {
   return (
     <div className="w-full px-5 md:px-10 py-6">
       <div className="w-full">
-        <div className="flex items-center gap-3 bg-white p-3 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-gray-100">
+        <div className="flex items-center gap-3 bg-white p-4 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-gray-100">
           {/* Search */}
           <div className="relative flex-1">
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl">
