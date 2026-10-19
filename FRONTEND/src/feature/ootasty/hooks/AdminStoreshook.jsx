@@ -15,6 +15,7 @@ export const useAdminStores = () => {
     const response = await getAllUsersAPI()
     dispatch(getAllUsers(response.data.data.users.allUsers))
   }
+  
 
   return {
     allStoresData,
