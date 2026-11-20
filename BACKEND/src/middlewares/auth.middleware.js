@@ -71,4 +71,34 @@ const authorization = async (req, res, next) => {
   next();
 };
 
-module.exports = { authentication, authorization };
+const authorizeOwner = async (req, res, next) => {
+  const token = req.headres.authorization?.split(" ")[1];
+
+  if (!token) {
+    res.status(404).json({
+      message: "Token not found",
+    });
+  }
+
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+  if (!decoded) {
+    res.status(401).json({
+      message: "invalid token.",
+    });
+  }
+
+  const user = await userModel.findById(decoded._id);
+
+  if (user.role !== "admin") {
+    res.status(403).json({
+      message: "Forbidden",
+    });
+  }
+
+  res.userProfile = user;
+
+  next();
+};
+
+module.exports = { authentication, authorization, authorizeOwner };

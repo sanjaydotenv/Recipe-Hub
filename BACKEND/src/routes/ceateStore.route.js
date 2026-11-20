@@ -16,8 +16,16 @@ route.post(
   storeController.createStoreController,
 );
 
-route.get("/getAllStores", storeController.getAllStoresController);
+route.get(
+  "/getAllStores",
+  authMiddleware.authorizeOwner,
+  storeController.getAllStoresController,
+);
 
-route.get("/getAllUsers", storeController.getAllUsersController);
+route.get(
+  "/getAllUsers",
+  authMiddleware.authorizeOwner,
+  storeController.getAllUsersController,
+);
 
 module.exports = route;
