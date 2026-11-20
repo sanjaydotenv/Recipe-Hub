@@ -72,7 +72,7 @@ const authorization = async (req, res, next) => {
 };
 
 const authorizeOwner = async (req, res, next) => {
-  const token = req.headres.authorization?.split(" ")[1];
+  const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
     res.status(404).json({
@@ -88,7 +88,13 @@ const authorizeOwner = async (req, res, next) => {
     });
   }
 
-  const user = await userModel.findById(decoded._id);
+  const user = await userModel.findById(decoded.id);
+
+  if (!user) {
+    res.status(403).json({
+      message: "User not found Forbidden",
+    });
+  }
 
   if (user.role !== "admin") {
     res.status(403).json({
