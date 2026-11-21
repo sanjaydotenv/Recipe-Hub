@@ -17,8 +17,8 @@ app.use(
 );
 app.use(cookieParser());
 
-app.use("/public/foods", getAllFoodsRouter);
-app.use("/auth/api/v1/user", userRouter);
+app.use("/api/public/foods", getAllFoodsRouter);
+app.use("/api/auth/api/v1/user", userRouter);
 app.use("/api/v2/store", createStoreRouter);
 app.use("/api/v3/foods", createFoodRouter);
 

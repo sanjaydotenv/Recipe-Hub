@@ -8,6 +8,6 @@ const {
 
 route.get("/get-all-foods", getAllFoodsController);
 
-route.post("/foodOne/:foodID", getOneFood);
+route.get("/foodOne/:foodID", getOneFood);
 
 module.exports = route;
