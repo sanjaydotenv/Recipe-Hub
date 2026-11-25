@@ -23,6 +23,8 @@ const createFoodController = async (req, res) => {
       foodImage.originalname,
     );
 
+    console.log("NOW" , foodImageResult)
+
     if (!foodImageResult) {
       return res.status(500).json({ message: "Failed to upload food image" });
     }

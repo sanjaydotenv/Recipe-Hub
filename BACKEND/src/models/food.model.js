@@ -15,7 +15,7 @@ const foodSchema = mongoose.Schema(
     foodDescription: {
       type: String,
       required: true,
-      minLength: 10,
+      minLength: 0,
       maxLength: 100,
     },
     foodImage: {
