@@ -11,6 +11,7 @@ import {
   ArrowUpRight,
   ChevronRight,
   ShieldCheck,
+  LogOut,
 } from "lucide-react";
 
 import BecomeASellerCard from "../components/BecomeASellerCard";
@@ -18,16 +19,19 @@ import { useProfile } from "../../hooks/profileHook";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
 import GoToDashboard from "../components/GoToDashboard";
+import { useHandleData } from "../../hooks/userHook";
 
 const ProfilePage = () => {
   const { handleBecomeASellerCard, isShow, backToProfile } = useProfile();
 
-  const { user  , isAuthenticated} = useSelector((state) => state.authUser);
+  const { handleLogoutUserHook } = useHandleData();
 
-  
+  const { user, isAuthenticated, accessToken } = useSelector(
+    (state) => state.authUser,
+  );
 
-  if (!isAuthenticated){
-    return <Navigate to={"/"} />
+  if (!isAuthenticated) {
+    return <Navigate to={"/"} />;
   }
 
   return (
@@ -230,83 +234,103 @@ const ProfilePage = () => {
                   </div>
                 </div>
               </div>
+
+              <button
+                onClick={() => {
+                  handleLogoutUserHook(accessToken);
+                }}
+                className="group w-fit rounded-2xl border border-gray-100 bg-[#f8f9f8] px-5 py-2 text-left transition hover:border-red-100 hover:bg-red-50/50"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-gray-500 shadow-sm transition group-hover:text-red-600">
+                    <LogOut size={18} />
+                  </div>
+
+                  <h1 className="mt-1 text-sm font-bold text-gray-800 transition group-hover:text-red-600">
+                    Logout
+                  </h1>
+                </div>
+              </button>
             </div>
           </section>
 
           {/* ================= SELLER CARD ================= */}
 
-          {user.role === "seller" ? <GoToDashboard /> : <section className="relative overflow-hidden rounded-[28px] bg-[#101512] p-6 text-white shadow-[0_15px_50px_rgba(0,0,0,0.12)] sm:p-7">
-            {/* Glow */}
-            <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-green-500/20 blur-3xl" />
+          {user.role === "seller" ? (
+            <GoToDashboard />
+          ) : (
+            <section className="relative overflow-hidden rounded-[28px] bg-[#101512] p-6 text-white shadow-[0_15px_50px_rgba(0,0,0,0.12)] sm:p-7">
+              {/* Glow */}
+              <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-green-500/20 blur-3xl" />
 
-            <div className="absolute -bottom-28 -left-20 h-56 w-56 rounded-full bg-emerald-500/10 blur-3xl" />
+              <div className="absolute -bottom-28 -left-20 h-56 w-56 rounded-full bg-emerald-500/10 blur-3xl" />
 
-            <div className="relative">
-              <div className="flex items-center justify-between">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-500 shadow-lg shadow-green-500/20">
-                  <Store size={22} />
+              <div className="relative">
+                <div className="flex items-center justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-500 shadow-lg shadow-green-500/20">
+                    <Store size={22} />
+                  </div>
+
+                  <ArrowUpRight size={20} className="text-gray-600" />
                 </div>
 
-                <ArrowUpRight size={20} className="text-gray-600" />
+                <p className="mt-7 text-[11px] font-black uppercase tracking-[0.2em] text-green-400">
+                  Seller Program
+                </p>
+
+                <h2 className="mt-2 max-w-sm text-3xl font-black leading-tight">
+                  Become a Recipe Seller
+                </h2>
+
+                <p className="mt-4 max-w-md text-sm leading-6 text-gray-400">
+                  Create your own store and share your delicious recipes with
+                  the Tasty community.
+                </p>
+
+                {/* Benefits */}
+                <div className="mt-7 space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-500/10">
+                      <div className="h-2 w-2 rounded-full bg-green-400" />
+                    </div>
+
+                    <p className="text-sm font-medium text-gray-300">
+                      Create your own food store
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-500/10">
+                      <div className="h-2 w-2 rounded-full bg-green-400" />
+                    </div>
+
+                    <p className="text-sm font-medium text-gray-300">
+                      Manage recipes and orders
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-500/10">
+                      <div className="h-2 w-2 rounded-full bg-green-400" />
+                    </div>
+
+                    <p className="text-sm font-medium text-gray-300">
+                      Track your store earnings
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleBecomeASellerCard}
+                  className="mt-8 flex w-full items-center justify-center gap-2 rounded-2xl bg-green-500 px-5 py-4 text-sm font-black text-white shadow-lg shadow-green-500/10 transition hover:bg-green-400 active:scale-[0.98]"
+                >
+                  <Store size={18} />
+                  Create Your Store
+                  <ChevronRight size={17} />
+                </button>
               </div>
-
-              <p className="mt-7 text-[11px] font-black uppercase tracking-[0.2em] text-green-400">
-                Seller Program
-              </p>
-
-              <h2 className="mt-2 max-w-sm text-3xl font-black leading-tight">
-                Become a Recipe Seller
-              </h2>
-
-              <p className="mt-4 max-w-md text-sm leading-6 text-gray-400">
-                Create your own store and share your delicious recipes with the
-                Tasty community.
-              </p>
-
-              {/* Benefits */}
-              <div className="mt-7 space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-500/10">
-                    <div className="h-2 w-2 rounded-full bg-green-400" />
-                  </div>
-
-                  <p className="text-sm font-medium text-gray-300">
-                    Create your own food store
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-500/10">
-                    <div className="h-2 w-2 rounded-full bg-green-400" />
-                  </div>
-
-                  <p className="text-sm font-medium text-gray-300">
-                    Manage recipes and orders
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-500/10">
-                    <div className="h-2 w-2 rounded-full bg-green-400" />
-                  </div>
-
-                  <p className="text-sm font-medium text-gray-300">
-                    Track your store earnings
-                  </p>
-                </div>
-              </div>
-
-              <button
-                onClick={handleBecomeASellerCard}
-                className="mt-8 flex w-full items-center justify-center gap-2 rounded-2xl bg-green-500 px-5 py-4 text-sm font-black text-white shadow-lg shadow-green-500/10 transition hover:bg-green-400 active:scale-[0.98]"
-              >
-                <Store size={18} />
-                Create Your Store
-                <ChevronRight size={17} />
-              </button>
-            </div>
-          </section>}
-          
+            </section>
+          )}
         </div>
 
         {/* ================= QUICK ACTIONS ================= */}

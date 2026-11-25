@@ -36,7 +36,7 @@ export const handleAccessToken = async (dispatch) => {
   return accessToken;
 };
 
-export const handleLogout = async (accessToken) => {
+export const handleLogoutAPI = async (accessToken) => {
   try {
     const res = await axiosInsatnce.post(
       "/auth/api/v1/user/logout",

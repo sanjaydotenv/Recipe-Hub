@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { handleLoginUserData, handleLogout, handleUserData } from "../api/users";
+import { handleLoginUserData, handleLogoutAPI, handleUserData } from "../api/users";
 import { useDispatch } from "react-redux";
-import { userLogin, userRegister } from "../state/authSlice";
+import { handleLogout, userLogin, userRegister } from "../state/authSlice";
 import { useNavigate } from "react-router";
 
 export const useHandleData = () => {
@@ -42,7 +42,9 @@ export const useHandleData = () => {
   };
 
   const handleLogoutUserHook = async (accessToken) => {
-    await handleLogout(accessToken)
+    await handleLogoutAPI(accessToken)
+    dispatch(handleLogout())
+    navigate("/")
   }
 
   return {

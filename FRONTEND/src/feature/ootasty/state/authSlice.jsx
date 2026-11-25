@@ -10,7 +10,7 @@ const authSice = createSlice({
   reducers: {
     userRegister: (state, action) => {
       state.user = action.payload;
-      state.isAuthenticated = true
+      state.isAuthenticated = true;
     },
     userLogin: (state, action) => {
       state.user = action.payload.data;
@@ -21,9 +21,14 @@ const authSice = createSlice({
       state.accessToken = action.payload;
       state.isAuthenticated = true;
     },
+    handleLogout: (state) => {
+      state.isAuthenticated = false;
+      state.accessToken = null;
+    },
   },
 });
 
-export const { userRegister, userLogin, setAccessToken } = authSice.actions;
+export const { userRegister, userLogin, setAccessToken, handleLogout } =
+  authSice.actions;
 
 export default authSice.reducer;
