@@ -44,7 +44,7 @@ export const useHandleData = () => {
   const handleLogoutUserHook = async (accessToken) => {
     await handleLogoutAPI(accessToken)
     dispatch(handleLogout())
-    navigate("/")
+    navigate("/login")
   }
 
   return {
