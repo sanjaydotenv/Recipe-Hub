@@ -7,21 +7,44 @@ import {
   FiArrowUpRight,
   FiMoreHorizontal,
 } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useAdminStores } from "../../hooks/AdminStoreshook";
+import { getAdminProfileAPI, tokenRotationAPI } from "../../api/getAllStores";
+import { setAccessToken, setAdminData } from "../../state/adminSlice";
 
 const AdminPage = () => {
+  const dispatch = useDispatch();
+
+  const hydrateAdmin = async () => {
+    const response = await tokenRotationAPI();
+
+    dispatch(setAccessToken(response.data.data.accessToken));
+
+    const data = await getAdminProfileAPI(response.data.data.accessToken);
+
+    dispatch(setAdminData(data.data.data.user));
+  };
+
+  useEffect(() => {
+    hydrateAdmin();
+  }, []);
+
+  const { accessToken } = useSelector((state) => state.admin);
+
   const { getAllUsersData, allStoresData } = useAdminStores();
 
   useEffect(() => {
-    getAllUsersData();
-    allStoresData();
-  }, []);
+    if (!accessToken) return;
+
+    getAllUsersData(accessToken);
+    allStoresData(accessToken);
+  }, [accessToken]);
 
   const { allStores, allUsers } = useSelector((state) => state.admin);
 
-
-
+  if (!accessToken) {
+    return <h1>loading</h1>;
+  }
   return (
     <div className="min-h-screen w-full bg-[#f6f8f7] text-[#0f172a] p-6 lg:p-8">
       {/* Header */}
@@ -167,7 +190,7 @@ const AdminPage = () => {
                 </div>
 
                 <div className="hidden sm:block text-sm text-gray-600">
-                  {user?.role === "seller" ? user?.storeData?.storeName : "N/A" }
+                  {user?.role === "seller" ? user?.storeData?.storeName : "N/A"}
                 </div>
 
                 <span
@@ -210,7 +233,9 @@ const AdminPage = () => {
             </div>
 
             <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-              <div className={`h-full w-[${allStores?.length}%] bg-[#064e3b] rounded-full`} />
+              <div
+                className={`h-full w-[${allStores?.length}%] bg-[#064e3b] rounded-full`}
+              />
             </div>
 
             <div className="flex items-center justify-between mt-6 mb-3">
