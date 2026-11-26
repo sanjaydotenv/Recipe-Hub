@@ -16,7 +16,7 @@ export const getAllData = () => {
 };
 
 export const useFoodCard = async (id, dispatch) => {
-  const data = await axiosInsatnce.post(`/public/foods/foodOne/${id}`);
+  const data = await axiosInsatnce.get(`/public/foods/foodOne/${id}`);
 
   console.log(data)
   dispatch(oneFood(data.data.data.food));

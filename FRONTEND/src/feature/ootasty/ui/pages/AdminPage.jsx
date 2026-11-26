@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   FiUsers,
   FiShoppingBag,
@@ -7,40 +7,12 @@ import {
   FiArrowUpRight,
   FiMoreHorizontal,
 } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
-import { useAdminStores } from "../../hooks/AdminStoreshook";
-import { getAdminProfileAPI, tokenRotationAPI } from "../../api/getAllStores";
-import { setAccessToken, setAdminData } from "../../state/adminSlice";
+import { useSelector } from "react-redux";
 
 const AdminPage = () => {
-  const dispatch = useDispatch();
-
-  const hydrateAdmin = async () => {
-    const response = await tokenRotationAPI();
-
-    dispatch(setAccessToken(response.data.data.accessToken));
-
-    const data = await getAdminProfileAPI(response.data.data.accessToken);
-
-    dispatch(setAdminData(data.data.data.user));
-  };
-
-  useEffect(() => {
-    hydrateAdmin();
-  }, []);
-
-  const { accessToken } = useSelector((state) => state.admin);
-
-  const { getAllUsersData, allStoresData } = useAdminStores();
-
-  useEffect(() => {
-    if (!accessToken) return;
-
-    getAllUsersData(accessToken);
-    allStoresData(accessToken);
-  }, [accessToken]);
-
-  const { allStores, allUsers } = useSelector((state) => state.admin);
+  const { allStores, allUsers, accessToken } = useSelector(
+    (state) => state.admin,
+  );
 
   if (!accessToken) {
     return <h1>loading</h1>;

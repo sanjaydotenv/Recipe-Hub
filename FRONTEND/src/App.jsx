@@ -130,7 +130,7 @@ const App = () => {
           element: <OrderPage />,
         },
         {
-          path: "order/confirm-order",
+          path: "order",
           element: <OrderConfirmed />,
         },
         {
