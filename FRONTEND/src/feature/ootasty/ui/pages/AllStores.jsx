@@ -97,23 +97,6 @@ const AllStores = () => {
             Manage all stores and monitor their activity.
           </p>
         </div>
-
-        <button
-          className="
-            flex items-center justify-center gap-2
-            px-4 py-2.5
-            rounded-xl
-            bg-[#064e3b]
-            text-white
-            text-sm font-medium
-            shadow-lg shadow-emerald-900/10
-            hover:bg-[#053f30]
-            transition
-          "
-        >
-          <FiPlus size={17} />
-          Add Store
-        </button>
       </div>
 
       {/* ================= STATS ================= */}

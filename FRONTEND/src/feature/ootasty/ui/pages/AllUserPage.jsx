@@ -92,22 +92,6 @@ const AllUserPage = () => {
           </p>
         </div>
 
-        <button
-          className="
-            flex items-center justify-center gap-2
-            px-4 py-2.5
-            rounded-xl
-            bg-[#064e3b]
-            text-white
-            text-sm font-medium
-            shadow-lg shadow-emerald-900/10
-            hover:bg-[#053f30]
-            transition
-          "
-        >
-          <FiUserPlus size={17} />
-          Add User
-        </button>
       </div>
 
       {/* ================= STATS ================= */}
@@ -138,18 +122,7 @@ const AllUserPage = () => {
           </div>
         </div>
 
-        {/* Pending */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <p className="text-sm text-gray-500">Pending Users</p>
 
-          <div className="flex items-end justify-between mt-2">
-            <h2 className="text-3xl font-bold">0</h2>
-
-            <span className="text-xs font-medium text-orange-600 bg-orange-50 px-2.5 py-1 rounded-full">
-              Needs review
-            </span>
-          </div>
-        </div>
 
         {/* New */}
         <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
