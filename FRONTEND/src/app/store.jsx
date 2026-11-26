@@ -4,6 +4,7 @@ import authReducer from "../feature/ootasty/state/authSlice";
 import adminReducer from "../feature/ootasty/state/adminSlice";
 
 export const store = configureStore({
+  
   reducer: {
     foods: foodsReducer,
     authUser: authReducer,
